@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, Image, StyleSheet} from 'react-native';
 import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
 import Recommend from './Recommend'
 
 export default class Home extends Component {
   render() {
     return (
-      <ScrollableTabView style={styles.navbar}>
+      <ScrollableTabView style={styles.navbar} tabBarActiveTextColor='#020202' tabBarInactiveTextColor='#938D8C'>
         <View tabLabel='推荐'>
           <Recommend/>
         </View>
-        <Text tabLabel='艺术家'>favorite</Text>
-        <Text tabLabel='品牌'>project</Text>
-        <Text tabLabel='关注'>favorite</Text>
+        <Text tabLabel='资讯'></Text>
       </ScrollableTabView>
     );
   }
@@ -23,7 +21,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
     backgroundColor: '#FFFFFF'
   }
 });
