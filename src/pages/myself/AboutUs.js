@@ -1,11 +1,14 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
+import globalStyle from '../../../assets/nativeStyles/global';
+
 export default class AboutUs extends React.Component {
 
-  componentDidMount (){
-    console.info("123");
-  }
+  static navigationOptions = {
+    title: '关于我们',
+    headerTitleStyle: globalStyle.commonFont,
+  };
 
   render() {
 

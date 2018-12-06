@@ -4,23 +4,25 @@ import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity } from '
 
 
 import globalStyle from '../../../assets/nativeStyles/global';
-import UserInfo from './UserInfo';
 import ContactUs from './ContactUs';
 import AboutUs from './AboutUs';
 import OrderList from './OrderList';
 import MyCollect from './MyCollect';
-
-
+import UserInfo from './userinfo/UserInfo';
+import Realname from './userinfo/Realname';
+import Sex from './userinfo/Sex';
+import Birthday from './userinfo/Birthday';
+import Mobile from './userinfo/Mobile';
 
 const styles = StyleSheet.create({
   imageView: {
     marginTop: 66,
     height: 100,
+    alignItems: 'center',
   },
   image: {
     width: 60,
     height: 60,
-    left: 155,
   },
   scoreView: {
     flexDirection: 'row',
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
   },
   touchView :{
     height: 68,
-    borderTopWidth: 1,
+    borderTopWidth: 0.5,
     borderTopColor: 'gray',
   },
   touchContentView: {
@@ -54,8 +56,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginLeft: 15,
     marginRight: 15,
-
-
   },
 
 });
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 class MySelfHome extends React.Component {
   static navigationOptions = {
     header: null,
-
+    headerBackTitle: null,
     };
   render() {
     return (
@@ -79,10 +79,10 @@ class MySelfHome extends React.Component {
             <Text>0</Text>
           </View>
           <View>
-            <Text >0</Text>
+            <Text>0</Text>
           </View>
           <View>
-            <Text >0</Text>
+            <Text>0</Text>
           </View>
         </View>
         <View style={styles.scoreTypeView}>
@@ -129,8 +129,7 @@ class MySelfHome extends React.Component {
             </View>
           </TouchableOpacity>
         </View>
-        <View style={[styles.touchView, {borderBottomWidth: 1,
-        borderBottomColor: 'gray',}]}>
+        <View style={[styles.touchView, {borderBottomColor: 'gray', borderBottomWidth: 0.5}]}>
           <TouchableOpacity onPress={() => {this.props.navigation.navigate('AboutUs')}}>
             <View style={styles.touchContentView} >
               <Text style={globalStyle.commonFont}>关于我们</Text>
@@ -145,57 +144,16 @@ class MySelfHome extends React.Component {
 
 const MySelfNavigator = createStackNavigator(
   {
-    MySelfHome: {
-      screen: MySelfHome,
-      navigationOptions: () => ({
-        title: `A`,
-        headerBackTitle: null
-      }),
-
-    },
-    MyCollect: {
-      screen: MyCollect,
-      navigationOptions: () => ({
-        title: `A`,
-        headerBackTitle: null
-      }),
-
-    },
-    OrderList: {
-      screen: OrderList,
-      navigationOptions: () => ({
-        title: `A`,
-        headerBackTitle: null
-      }),
-
-    },
-    UserInfo: {
-      screen: UserInfo,
-      navigationOptions: () => ({
-        title: `A`,
-        headerBackTitle: null
-      }),
-
-    },
-    ContactUs: {
-      screen: ContactUs,
-      navigationOptions: () => ({
-        title: `联系我们`,
-        headerBackTitle: null
-      }),
-
-    },
-    AboutUs: {
-      screen: AboutUs,
-      navigationOptions: () => ({
-        title: '关于我们',
-
-      }),
-    },
-
-  },
-  {
-    initialRouteName: 'MySelfHome',
+    MySelfHome: MySelfHome,
+    MyCollect: MyCollect,
+    OrderList: OrderList,
+    ContactUs: ContactUs,
+    AboutUs: AboutUs,
+    UserInfo: UserInfo,
+    Realname: Realname,
+    Sex: Sex,
+    Birthday: Birthday,
+    Mobile: Mobile,
   }
 );
 

@@ -1,8 +1,14 @@
 import React from 'react'
 import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import globalStyle from '../../../../assets/nativeStyles/global';
 
 
-export default class UserInfo extends React.Component {
+export default class Mobile extends React.Component {
+  static navigationOptions = {
+    title: '联系方式',
+    headerTitleStyle: globalStyle.commonFont,
+    headerTintColor: 'gray',
+  };
   render() {
 
     const { navigation } = this.props;
@@ -14,7 +20,7 @@ export default class UserInfo extends React.Component {
         <Text>Details Screen</Text>
         <Text>itemId: {JSON.stringify(itemId)}</Text>
         <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-        
+        <Text>用户名称</Text>
       </View>
     );
   }
