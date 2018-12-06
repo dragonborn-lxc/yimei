@@ -28,7 +28,7 @@ const AppNavigator = createBottomTabNavigator({
   home: {
     screen: Home,
     navigationOptions: ({navigation}) => ({
-      tabBarLabel: '首页',
+      tabBarLabel: '藝魅',
       tabBarIcon: ({focused, tintColor}) => (focused ? <MaterialCommunityIcons name="home" size={20}/>: <MaterialCommunityIcons name="home-outline" size={20}/>)
     })
   },
@@ -54,7 +54,7 @@ const AppNavigator = createBottomTabNavigator({
     })
   }
 },{
-  initialRouteName: 'home',
+  initialRouteName: 'myself',
   order: ['home', 'classify', 'subject', 'myself'],
   tabBarOptions: {
     labelStyle: {

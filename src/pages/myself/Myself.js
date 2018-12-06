@@ -133,7 +133,7 @@ class MySelfHome extends React.Component {
   }
 }
 
-const RootStack = createStackNavigator(
+const MySelfNavigator = createStackNavigator(
   {
     MySelfHome: {
       screen: MySelfHome,
@@ -191,10 +191,13 @@ const RootStack = createStackNavigator(
   }
 );
 
-const AppContainer = createAppContainer(RootStack);
 
 export default class Myself extends React.Component {
+  static router = MySelfNavigator.router;
+
   render() {
-    return <AppContainer />;
+    return (
+      <MySelfNavigator navigation={this.props.navigation} />
+    );
   }
 }
