@@ -2,6 +2,11 @@ import React from 'react'
 import { View, Text } from 'react-native'
 
 export default class AboutUs extends React.Component {
+
+  componentDidMount (){
+    console.info("123");
+  }
+
   render() {
 
     const { navigation } = this.props;

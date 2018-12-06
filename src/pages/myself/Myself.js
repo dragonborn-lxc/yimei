@@ -2,6 +2,8 @@ import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 
+
+import globalStyle from '../../../assets/nativeStyles/global';
 import UserInfo from './UserInfo';
 import ContactUs from './ContactUs';
 import AboutUs from './AboutUs';
@@ -9,10 +11,11 @@ import OrderList from './OrderList';
 import MyCollect from './MyCollect';
 
 
+
 const styles = StyleSheet.create({
   imageView: {
-    marginTop: 68,
-    height: 110,
+    marginTop: 66,
+    height: 100,
   },
   image: {
     width: 60,
@@ -21,18 +24,21 @@ const styles = StyleSheet.create({
   },
   scoreView: {
     flexDirection: 'row',
-    backgroundColor: 'steelblue',
-    marginLeft: 40,
-    height: 35
+    justifyContent: 'space-between',
+    marginLeft: 86,
+    marginRight: 90,
+    height: 40
   },
   scoreText: {
-
+    fontSize: 20,
   },
   scoreTypeView: {
     flexDirection: 'row',
-    backgroundColor: 'skyblue',
-    marginLeft: 40,
-    height: 48
+    justifyContent: 'space-between',
+    marginLeft: 80,
+    marginRight: 80,
+    height: 48,
+
   },
   scoreType: {
 
@@ -43,16 +49,14 @@ const styles = StyleSheet.create({
     borderTopColor: 'gray',
   },
   touchContentView: {
-    top: 15,
+    top: 28,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 15,
+    marginRight: 15,
+
 
   },
-  touchContentText: {
-    fontSize: 30
-  }
 
 });
 
@@ -71,9 +75,15 @@ class MySelfHome extends React.Component {
           />
         </View>
         <View style={styles.scoreView}>
-          <Text style={styles.scoreText} >0</Text>
-          <Text>0</Text>
-          <Text>0</Text>
+          <View>
+            <Text>0</Text>
+          </View>
+          <View>
+            <Text >0</Text>
+          </View>
+          <View>
+            <Text >0</Text>
+          </View>
         </View>
         <View style={styles.scoreTypeView}>
           <TouchableOpacity onPress={() => {
@@ -83,7 +93,7 @@ class MySelfHome extends React.Component {
                 });
               }}>
             <View>
-              <Text >订单</Text>
+              <Text style={globalStyle.commonFont}>订单</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
@@ -93,10 +103,10 @@ class MySelfHome extends React.Component {
                 });
               }}>
             <View>
-              <Text >收藏</Text>
+              <Text style={globalStyle.commonFont}>收藏</Text>
             </View>
           </TouchableOpacity>
-          <Text>积分</Text>
+          <Text style={globalStyle.commonFont}>积分</Text>
         </View>
         <View style={styles.touchView}>
           <TouchableOpacity onPress={() => {
@@ -106,16 +116,16 @@ class MySelfHome extends React.Component {
                 });
               }}>
             <View style={styles.touchContentView} >
-              <Text style={styles.touchContentText}>用户信息</Text>
-              <Text style={styles.touchContentText}>></Text>
+              <Text style={globalStyle.commonFont}>用户信息</Text>
+              <Text style={globalStyle.commonFont}>></Text>
             </View>
           </TouchableOpacity>
         </View>
         <View style={styles.touchView}>
           <TouchableOpacity onPress={() => {this.props.navigation.navigate('ContactUs')}}>
             <View style={styles.touchContentView} >
-              <Text style={styles.touchContentText}>联系客服</Text>
-              <Text style={styles.touchContentText}>></Text>
+              <Text style={globalStyle.commonFont}>联系客服</Text>
+              <Text style={globalStyle.commonFont}>></Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -123,8 +133,8 @@ class MySelfHome extends React.Component {
         borderBottomColor: 'gray',}]}>
           <TouchableOpacity onPress={() => {this.props.navigation.navigate('AboutUs')}}>
             <View style={styles.touchContentView} >
-              <Text style={styles.touchContentText}>关于我们</Text>
-              <Text style={styles.touchContentText}>></Text>
+              <Text style={globalStyle.commonFont}>关于我们</Text>
+              <Text style={globalStyle.commonFont}>></Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -179,9 +189,7 @@ const MySelfNavigator = createStackNavigator(
       screen: AboutUs,
       navigationOptions: () => ({
         title: '关于我们',
-        headerTintColor: {
-          color: 'red'
-        }
+
       }),
     },
 
