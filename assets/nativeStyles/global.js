@@ -11,4 +11,9 @@ export default StyleSheet.create({
     color: 'rgb(2,2,2)',
     fontWeight: ('normal', '100'),
   },
+  commonFont2: {  // 黑色
+    fontSize: 15,
+    color: 'rgb(2,2,2)',
+    fontWeight: ('normal', '100'),
+  },
 });

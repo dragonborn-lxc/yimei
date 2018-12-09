@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Text, View, Image, StyleSheet} from 'react-native';
 import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
-import Recommend from './Recommend'
+import Recommend from './Recommend';
+import News from './News';
 
 export default class Home extends Component {
   render() {
@@ -10,7 +11,9 @@ export default class Home extends Component {
         <View tabLabel='推荐'>
           <Recommend/>
         </View>
-        <Text tabLabel='资讯'></Text>
+        <View tabLabel='资讯'>
+          <News/>
+        </View>
       </ScrollableTabView>
     );
   }

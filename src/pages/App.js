@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Text} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -28,37 +29,40 @@ const AppNavigator = createBottomTabNavigator({
   home: {
     screen: Home,
     navigationOptions: ({navigation}) => ({
-      tabBarLabel: '藝魅',
-      tabBarIcon: ({focused, tintColor}) => (focused ? <MaterialCommunityIcons name="home" size={20}/>: <MaterialCommunityIcons name="home-outline" size={20}/>)
+      tabBarLabel: '首页',
+      tabBarIcon: ({focused, tintColor}) => (focused ? <MaterialCommunityIcons name="home" size={30} color={tintColor} style={{marginTop:4}}/>: <MaterialCommunityIcons name="home" size={30} color={tintColor} style={{marginTop:4}}/>)
     })
   },
   classify: {
     screen: Classify,
     navigationOptions: ({navigation}) => ({
       tabBarLabel: '分类',
-      tabBarIcon: ({focused, tintColor}) => (focused ? <FontAwesome5 name="list-ul" size={20}/>: <FontAwesome5 name="list-alt" size={20}/>)
+      tabBarIcon: ({focused, tintColor}) => (focused ? <FontAwesome5 name="list-ul" size={23} color={tintColor} style={{marginTop:6}}/>: <FontAwesome5 name="list-ul" size={23} color={tintColor} style={{marginTop:6}}/>)
     })
   },
   subject: {
     screen: Subject,
     navigationOptions: ({navigation}) => ({
       tabBarLabel: '专题',
-      tabBarIcon: ({focused, tintColor}) => (focused ? <MaterialCommunityIcons name="view-grid" size={20}/>: <Feather name="grid" size={20}/>)
+      tabBarIcon: ({focused, tintColor}) => (focused ? <MaterialCommunityIcons name="view-grid" size={25} color={tintColor} style={{marginTop:6}}/>: <Feather name="grid" size={24} color={tintColor} style={{marginTop:5}}/>)
     })
   },
   myself: {
     screen: Myself,
     navigationOptions: ({navigation}) => ({
       tabBarLabel: '我的',
-      tabBarIcon: ({focused, tintColor}) => (focused ? <FontAwesome name="user" size={20}/>: <FontAwesome name="user-o" size={20}/>)
+      tabBarIcon: ({focused, tintColor}) => (focused ? <FontAwesome name="user" size={25} color={tintColor} style={{marginTop:4}}/>: <FontAwesome name="user" size={25} color={tintColor} style={{marginTop:4}}/>)
     })
   }
 },{
-  initialRouteName: 'myself',
+  initialRouteName: 'home',
   order: ['home', 'classify', 'subject', 'myself'],
   tabBarOptions: {
+    activeTintColor: '#020202',
+    inactiveTintColor: '#938D8C',
     labelStyle: {
-      fontSize: 12
+      fontSize: 11,
+      marginBottom: 5
     }
   }
 });
