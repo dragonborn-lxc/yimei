@@ -49,7 +49,7 @@ export default class News extends Component {
   showCell(index, item) {
     return (
       <View style={styles.items}>
-        <Image style={styles.img} source={{ url: item.url }} />
+        <Image style={styles.img} source={{ uri: item.url }} />
       </View>
     )
   }

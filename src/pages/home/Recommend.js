@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Text, View, Image, Dimensions, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Swiper from 'react-native-swiper';
 
 var Diemnsions = require('Dimensions');
 var w = Diemnsions.get('window').width;
-var h = Diemnsions.get('window').height;
 
 var paint = [
   {
@@ -41,11 +41,15 @@ export default class Recommend extends Component {
 
   render() {
     return (
-      <FlatList
-        data={paint}
-        renderItem={({ index, item }) => this.showCell(index, item)}
-        keyExtractor={(item, index) => (index + '')}
-      />
+      <View style={{flex: 1}}>
+        <View style={styles.banner}>
+          <Swiper showButtons={true} loop={true} autoplay={true} autoplayTimeout={3}>
+            <Image style={styles.img} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
+            <Image style={styles.img} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
+            <Image style={styles.img} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
+          </Swiper>
+        </View>
+      </View>
     );
   }
 
@@ -67,25 +71,11 @@ export default class Recommend extends Component {
 }
 
 const styles = StyleSheet.create({
-  items: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: '#DCDCDC',
-    top: 6,
-    left: 12,
-    marginBottom: 12,
-    width: 352,
-    height: 280,
+  banner: {
+    width: w,
+    height: 188
   },
   img: {
-    width: 310,
-    height: 220,
-    top: 18,
-    left: 18
-  },
-  desc: {
-    flexDirection: 'row',
-    position: "absolute",
-    bottom: 10,
-  },
+    flex: 1
+  }
 });
