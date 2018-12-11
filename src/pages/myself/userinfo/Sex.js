@@ -1,26 +1,66 @@
 import React from 'react'
 import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
-import globalStyle from '../../../../assets/nativeStyles/global';
+import AntDesign from 'react-native-vector-icons/AntDesign'
 
+import globalStyle from '../../../../assets/nativeStyles/global';
+import styles from './styles'
 
 export default class Sex extends React.Component {
-  static navigationOptions = {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: this.props.navigation.getParam('id', 'NO-ID'),
+      sex: this.props.navigation.getParam('sex', 'some default value'),
+    }
+  }
+
+  static navigationOptions = ({ navigation }) => ({
     title: '性别',
     headerTitleStyle: globalStyle.commonFont,
     headerTintColor: 'gray',
-  };
+    headerRight:(
+         	<View style={{justifyContent:'center', marginRight: 10,}}>
+            <TouchableOpacity onPress={() => navigation.goBack(null)} >
+                <View>
+                  <Text style={[globalStyle.commonFont2, styles.font2]}>完成</Text>
+                </View>
+            </TouchableOpacity>
+         	</View>
+        ),
+  });
+
+  changeSex=(sex)=>{
+    let temp = this.state;
+    temp.sex = sex;
+    this.setState(temp);
+  }
+
   render() {
 
-    const { navigation } = this.props;
-    const itemId = navigation.getParam('itemId', 'NO-ID');
-    const otherParam = navigation.getParam('otherParam', 'some default value');
-
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
-        <Text>itemId: {JSON.stringify(itemId)}</Text>
-        <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-        <Text>用户名称</Text>
+
+      <View style={{flex: 1}}>
+        <TouchableOpacity onPress={this.changeSex.bind(this, 'MALE')}>
+          <View style={[styles.eachView]}>
+            <View style={[styles.fontView]} ><Text style={[globalStyle.commonFont2, styles.font2]}>男</Text></View>
+            {
+              this.state.sex === 'MALE' ? <View style={[styles.fontView]} ><AntDesign name="check" size={14} /></View> : null
+            }
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this.changeSex.bind(this, 'FEMALE')}>
+          <View style={[styles.eachView]}>
+            <View style={[styles.fontView]} ><Text style={[globalStyle.commonFont2, styles.font2]}>女</Text></View>
+            {
+              this.state.sex === 'FEMALE' ? <View style={[styles.fontView]} ><AntDesign name="check" size={14} /></View> : null
+            }
+          </View>
+        </TouchableOpacity>
+
+        <Text>id: {JSON.stringify(this.state.id)}</Text>
+        <Text>sex: {JSON.stringify(this.state.sex)}</Text>
       </View>
     );
   }

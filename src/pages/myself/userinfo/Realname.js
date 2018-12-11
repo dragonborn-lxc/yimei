@@ -1,27 +1,50 @@
 import React from 'react'
-import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import globalStyle from '../../../../assets/nativeStyles/global';
+import styles from './styles'
 
 
 export default class Realname extends React.Component {
-  static navigationOptions = {
-    title: '用户姓名',
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: this.props.navigation.getParam('id', 'NO-ID'),
+      realName: this.props.navigation.getParam('realName', 'some default value'),
+    }
+  }
+
+  static navigationOptions = ({ navigation }) => ({
+    title: '真实姓名',
     headerTitleStyle: globalStyle.commonFont,
     headerTintColor: 'gray',
-  };
+    headerRight:(
+         	<View style={{justifyContent:'center', marginRight: 10,}}>
+            <TouchableOpacity onPress={() => navigation.goBack(null)} >
+                <View>
+                  <Text style={[globalStyle.commonFont2, styles.font2]}>完成</Text>
+                </View>
+            </TouchableOpacity>
+         	</View>
+        ),
+  });
+
   render() {
-
-    const { navigation } = this.props;
-    const itemId = navigation.getParam('itemId', 'NO-ID');
-    const otherParam = navigation.getParam('otherParam', 'some default value');
-
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
-        <Text>itemId: {JSON.stringify(itemId)}</Text>
-        <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-        <Text>用户名称</Text>
+      <View style={{flex:1}}>
+        <View style={[styles.eachInputView]}>
+          <View style={styles.inputFontView}>
+            <TextInput value={this.state.realName}
+              onChangeText={(realName) => this.setState({realName})}
+              blurOnSubmit={true}
+              maxLength={50}
+              clearButtonMode={'while-editing'}
+              placeholder={'请输入真实姓名'}
+            />
+          </View>
+        </View>
       </View>
+
     );
   }
 }

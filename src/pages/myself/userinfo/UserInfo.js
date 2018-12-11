@@ -4,30 +4,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import globalStyle from '../../../../assets/nativeStyles/global';
-
-const styles = StyleSheet.create({
-
-  eachView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 32,
-    borderBottomWidth: 0.5,
-    borderBottomColor: 'gray',
-  },
-  fontView: {
-    top: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    flexDirection: 'row',
-
-  },
-  font: {
-    fontSize: 12
-  },
-  font2: {
-    fontSize: 14
-  }
-})
+import styles from './styles'
 
 export default class UserInfo extends React.Component {
   static navigationOptions = {
@@ -54,18 +31,21 @@ export default class UserInfo extends React.Component {
           <View style={styles.fontView} >
             <Text style={[globalStyle.commonFont, styles.font]}>暂无&nbsp;&nbsp;
             </Text>
-            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Realname')}}>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Realname', {
+              id: 86, realName: '暂无'
+            }) }}>
               <Entypo name="chevron-with-circle-right" size={14} color='gray' />
             </TouchableOpacity>
           </View>
-
         </View>
 
         <View style={styles.eachView}>
           <View style={styles.fontView} ><Text style={[globalStyle.commonFont2, styles.font2]}>性别</Text></View>
           <View style={styles.fontView} >
             <Text style={[globalStyle.commonFont, styles.font]}>高富帅&nbsp;&nbsp;</Text>
-            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Sex')}}>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Sex',  {
+              id: 86, sex: 'MALE',
+            })}}>
               <Entypo name="chevron-with-circle-right" size={14} color='gray' />
             </TouchableOpacity>
           </View>
@@ -75,7 +55,9 @@ export default class UserInfo extends React.Component {
           <View style={styles.fontView} ><Text style={[globalStyle.commonFont2, styles.font2]}>出生年月</Text></View>
           <View style={styles.fontView} >
             <Text style={[globalStyle.commonFont, styles.font]}>2013-03-25&nbsp;&nbsp;</Text>
-            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Birthday')}}>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Birthday', {
+                id: 86, birthday: '2013-03-25',
+              })}}>
               <Entypo name="chevron-with-circle-right" size={14} color='gray' />
             </TouchableOpacity>
           </View>
@@ -85,7 +67,9 @@ export default class UserInfo extends React.Component {
           <View style={styles.fontView} ><Text style={[globalStyle.commonFont2, styles.font2]}>联系方式</Text></View>
           <View style={styles.fontView} >
             <Text style={[globalStyle.commonFont, styles.font]}>13213212312&nbsp;&nbsp;</Text>
-            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Mobile')}}>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Mobile', {
+                id: 86, mobile: '13213212312',
+              })}}>
               <Entypo name="chevron-with-circle-right" size={14} color='gray' />
             </TouchableOpacity>
           </View>
