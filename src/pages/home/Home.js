@@ -22,8 +22,6 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   navbar: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#FFFFFF'
   }
 });
