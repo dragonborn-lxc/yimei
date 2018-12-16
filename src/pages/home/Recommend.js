@@ -77,7 +77,7 @@ export default class Recommend extends Component {
     return (
       <View style={styles.subject}>
         <View style={styles.topic}>
-          <Text style={{fontSize: 13}}>{item.name}</Text>
+          <Text style={styles.topicname}>{item.name}</Text>
           <TouchableOpacity>
             <Text style={styles.more}>更多＞</Text>
           </TouchableOpacity>
@@ -99,7 +99,7 @@ export default class Recommend extends Component {
     return (
       <View style={styles.items}>
         <Image style={styles.item} source={{uri: item.url}} />
-        <Text style={{fontSize:8, color: '#938D8C'}}>{item.name}</Text>
+        <Text style={styles.itemname}>{item.name}</Text>
       </View>
     )
   };
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   subject: {
     width: w,
-    height: 136,
+    height: 134,
     borderBottomWidth: 1/PixelRatio.get(),
     borderColor:'#938D8C'
   },
@@ -123,17 +123,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    marginTop: 9,
-    marginLeft: 15,
+    marginTop: 8,
+    marginLeft: 13,
     marginRight: 8
+  },
+  topicname: {
+    fontSize: 12,
+    fontWeight: '300'
   },
   more: {
     fontSize: 7,
+    fontWeight: '200',
     color: '#938D8C'
   },
   show: {
     justifyContent: 'space-around',
-    marginTop: 4,
+    marginTop: 5,
     marginLeft: 38,
     marginRight: 38
   },
@@ -144,5 +149,10 @@ const styles = StyleSheet.create({
   item: {
     height:80,
     width:80
+  },
+  itemname: {
+    fontSize:8,
+    fontWeight: '300',
+    color: '#938D8C'
   }
 });

@@ -7,21 +7,41 @@ import News from './News';
 export default class Home extends Component {
   render() {
     return (
-      <ScrollableTabView style={styles.navbar} tabBarActiveTextColor='#020202' tabBarInactiveTextColor='#938D8C'>
-        <View tabLabel='推荐'>
-          <Recommend/>
-        </View>
-        <View tabLabel='资讯'>
-          <News/>
-        </View>
-      </ScrollableTabView>
+      <View style={styles.container}>
+        <Image style={styles.logo} source={require('../../../assets/images/home_title.png')}/>
+        <ScrollableTabView style={styles.navbar} tabBarActiveTextColor='#020202' tabBarInactiveTextColor='#938D8C' tabBarTextStyle={styles.label} tabBarUnderlineStyle={styles.underline}>
+          <View tabLabel='推荐'>
+            <Recommend/>
+          </View>
+          <View tabLabel='资讯'>
+            <News/>
+          </View>
+        </ScrollableTabView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    alignItems: 'center'
+  },
+  logo: {
+    marginTop: 18,
+    height: 42,
+    width: 76
+  },
   navbar: {
     flex: 1,
-    backgroundColor: '#FFFFFF'
+    marginTop: -25
+  },
+  label: {
+    marginTop: 22,
+    fontWeight: '300'
+  },
+  underline: {
+    height: 1,
+    backgroundColor: '#020202'
   }
 });
