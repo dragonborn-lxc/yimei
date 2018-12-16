@@ -9,7 +9,7 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <Image style={styles.logo} source={require('../../../assets/images/home_title.png')}/>
-        <ScrollableTabView style={styles.navbar} tabBarActiveTextColor='#020202' tabBarInactiveTextColor='#938D8C' tabBarTextStyle={styles.label} tabBarUnderlineStyle={styles.underline}>
+        <ScrollableTabView style={styles.navbar} tabBarActiveTextColor='#000000' tabBarInactiveTextColor='#8D8D8D' tabBarTextStyle={styles.label} tabBarUnderlineStyle={styles.underline}>
           <View tabLabel='推荐'>
             <Recommend/>
           </View>
@@ -42,6 +42,6 @@ const styles = StyleSheet.create({
   },
   underline: {
     height: 1,
-    backgroundColor: '#020202'
+    backgroundColor: '#000000'
   }
 });

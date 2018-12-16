@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     width: w,
     height: 134,
     borderBottomWidth: 1/PixelRatio.get(),
-    borderColor:'#938D8C'
+    borderColor:'#8D8D8D'
   },
   topic: {
     flexDirection: 'row',
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   more: {
     fontSize: 7,
     fontWeight: '200',
-    color: '#938D8C'
+    color: '#8D8D8D'
   },
   show: {
     justifyContent: 'space-around',
@@ -153,6 +153,6 @@ const styles = StyleSheet.create({
   itemname: {
     fontSize:8,
     fontWeight: '300',
-    color: '#938D8C'
+    color: '#8D8D8D'
   }
 });
