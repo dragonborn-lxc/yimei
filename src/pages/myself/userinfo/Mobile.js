@@ -17,7 +17,7 @@ export default class Mobile extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     title: '联系方式',
-    headerTitleStyle: globalStyle.commonFont2,
+    headerTitleStyle: globalStyle.black15,
     headerLeft:(
          	<View style={{justifyContent:'center', marginLeft: 10,}}>
             <TouchableOpacity onPress={() => navigation.goBack(null)} >
@@ -31,7 +31,7 @@ export default class Mobile extends React.Component {
          	<View style={{justifyContent:'center', marginRight: 10,}}>
             <TouchableOpacity onPress={() => navigation.goBack(null)} >
                 <View>
-                  <Text style={globalStyle.commonFont3}>完成</Text>
+                  <Text style={globalStyle.gray14}>完成</Text>
                 </View>
             </TouchableOpacity>
          	</View>

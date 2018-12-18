@@ -32,7 +32,7 @@ export default class MyCollect extends Component {
 
     static navigationOptions = ({ navigation }) => ({
       title: '我的收藏',
-      headerTitleStyle: globalStyle.commonFont2,
+      headerTitleStyle: globalStyle.black15,
       headerLeft:(
            	<View style={{justifyContent:'center', marginLeft: 10,}}>
               <TouchableOpacity onPress={() => navigation.goBack(null)} >
@@ -115,11 +115,26 @@ export default class MyCollect extends Component {
     _renderItemView({item}) {
         return (
           <View style={styles.row}>
-            <View style={styles.rowData}>
-              <Text style={styles.rowDataText}>图片</Text>
+            <View >
+              <Image style={styles.image} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
             </View>
             <View style={styles.rowData}>
-              <Text style={styles.rowDataText}>内容</Text>
+              <View style={styles.rowDataTitle}>
+                <Text style={globalStyle.black15}>{item.id}</Text>
+              </View>
+              <View style={styles.rowDataAuther}>
+                <Text style={globalStyle.black12}>作者名字</Text>
+              </View>
+
+              <View style={styles.rowDataDesc}>
+                <Text style={globalStyle.gray11}>题材/</Text>
+                <Text style={globalStyle.gray11}>材质/</Text>
+                <Text style={globalStyle.gray11}>大小/</Text>
+                <Text style={globalStyle.gray11}>创作年份</Text>
+              </View>
+              <View style={styles.rowDataPrice}>
+                <Text style={globalStyle.red14}>999999.99元</Text>
+              </View>
             </View>
           </View>
         );
@@ -128,27 +143,30 @@ export default class MyCollect extends Component {
     renderQuickActions({item}: Object): ?React.Element<any> {
       return (
         <View style={styles.actionsContainer}>
-          <TouchableHighlight
-            style={[styles.actionButton, styles.actionButtonDestructive]}
+          <TouchableOpacity
+            style={[styles.actionButton]}
             onPress={this.deleteRow.bind(this, item)}>
-            <Text style={styles.actionButtonText}>Remove</Text>
-          </TouchableHighlight>
+            <Text style={styles.actionButtonText}>删除</Text>
+          </TouchableOpacity>
         </View>
       );
     }
 
-    deleteRow(deleteItem) {
+    deleteRow =(deleteItem)=> {
       // todo 删除数据
-
+      console.info('delete data');
       const newData = [...this.state.data];
+
       const prevIndex = this.state.data.findIndex(item => item === deleteItem);
       newData.splice(prevIndex, 1);
       this.setState({data: newData});
+      this._flatListRef._onClose();
     }
 
     renderData() {
         return (
             <SwipeableFlatList
+                onRef={this.onRef}
                 data={this.state.data}
                 renderItem={this._renderItemView}
                 ListFooterComponent={this._renderFooter.bind(this)}
@@ -167,8 +185,11 @@ export default class MyCollect extends Component {
                 }
 
                 bounceFirstRowOnMount={false}
-                maxSwipeDistance={80}
+                maxSwipeDistance={100}
                 renderQuickActions={this.renderQuickActions.bind(this)}
+                ref={ref => {
+                  this._flatListRef = ref;
+                }}
             />
 
         );
@@ -243,7 +264,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
-
     footer:{
         flexDirection:'row',
         height:24,
@@ -261,32 +281,46 @@ const styles = StyleSheet.create({
     row: {
       height: 124,
       flexDirection: 'row',
-      justifyContent: 'center',
       alignItems: 'center',
       padding: 10,
-      backgroundColor: '#F6F6F6',
+      backgroundColor: 'white',
+    },
+    image: {
+      height: 105,
+      width: 105,
     },
     rowData: {
-      flex: 1,
+      height: 105,
+      width: 195,
+      marginLeft: 25,
     },
-    rowDataText: {
-      fontSize: 24,
+    rowDataTitle: {
+      height: 55,
+    },
+    rowDataAuther: {
+      height: 16,
+    },
+    rowDataDesc: {
+      height: 16,
+      flexDirection: 'row',
+    },
+    rowDataPrice: {
+      height: 16,
     },
     actionsContainer: {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'flex-end',
       alignItems: 'center',
+      backgroundColor: '#FF0000',
     },
     actionButton: {
       padding: 10,
-      width: 80,
-      backgroundColor: '#999999',
-    },
-    actionButtonDestructive: {
+      width: 100,
       backgroundColor: '#FF0000',
     },
     actionButtonText: {
       textAlign: 'center',
+      color: 'white',
     },
 });

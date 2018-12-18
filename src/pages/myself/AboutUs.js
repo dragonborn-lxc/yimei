@@ -7,7 +7,7 @@ export default class AboutUs extends React.Component {
 
   static navigationOptions = {
     title: '关于我们',
-    headerTitleStyle: globalStyle.commonFont,
+    headerTitleStyle: globalStyle.black15,
   };
 
   render() {

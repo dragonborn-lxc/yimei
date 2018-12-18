@@ -17,9 +17,9 @@ export default class OrderList extends React.Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    title: '列表',
-    headerTitleStyle: globalStyle.commonFont2,
-    headerTintColor: 'gray',
+    title: '订单列表',
+    headerTitleStyle: globalStyle.gray15,
+    headerTintColor: 'black',
   });
 
   render() {

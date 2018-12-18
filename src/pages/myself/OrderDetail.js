@@ -13,8 +13,8 @@ export default class OrderDetail extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     title: '订单详情',
-    headerTitleStyle: globalStyle.commonFont2,
-    headerTintColor: 'gray',
+    headerTitleStyle: globalStyle.gray15,
+    headerTintColor: 'black',
   });
 
   render() {

@@ -6,7 +6,7 @@ import globalStyle from '../../../assets/nativeStyles/global';
 export default class ContactUs extends React.Component {
   static navigationOptions = {
     title: '联系我们',
-    headerTitleStyle: globalStyle.commonFont,
+    headerTitleStyle: globalStyle.black15,
     headerTintColor: 'gray',
   };
 

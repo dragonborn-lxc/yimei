@@ -26,7 +26,7 @@ export default class Birthday extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     title: '出生年月',
-    headerTitleStyle: globalStyle.commonFont2,
+    headerTitleStyle: globalStyle.black15,
     headerLeft:(
          	<View style={{justifyContent:'center', marginLeft: 10,}}>
             <TouchableOpacity onPress={() => navigation.goBack(null)} >
@@ -40,7 +40,7 @@ export default class Birthday extends Component {
          	<View style={{justifyContent:'center', marginRight: 10,}}>
             <TouchableOpacity onPress={() => navigation.goBack(null)} >
                 <View>
-                  <Text style={globalStyle.commonFont3}>完成</Text>
+                  <Text style={globalStyle.gray14}>完成</Text>
                 </View>
             </TouchableOpacity>
          	</View>

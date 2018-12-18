@@ -17,7 +17,7 @@ export default class Sex extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     title: '性别',
-    headerTitleStyle: globalStyle.commonFont2,
+    headerTitleStyle: globalStyle.black15,
     headerLeft:(
          	<View style={{justifyContent:'center', marginLeft: 10,}}>
             <TouchableOpacity onPress={() => navigation.goBack(null)} >
@@ -31,7 +31,7 @@ export default class Sex extends React.Component {
          	<View style={{justifyContent:'center', marginRight: 10,}}>
             <TouchableOpacity onPress={() => navigation.goBack(null)} >
                 <View>
-                  <Text style={globalStyle.commonFont3}>完成</Text>
+                  <Text style={globalStyle.gray14}>完成</Text>
                 </View>
             </TouchableOpacity>
          	</View>
@@ -51,7 +51,7 @@ export default class Sex extends React.Component {
       <View style={{flex: 1}}>
         <TouchableOpacity onPress={this.changeSex.bind(this, 'MALE')}>
           <View style={[styles.eachView]}>
-            <View style={[styles.fontView]} ><Text style={[globalStyle.commonFont2, styles.font2]}>男</Text></View>
+            <View style={[styles.fontView]} ><Text style={[globalStyle.gray15, styles.font2]}>男</Text></View>
             {
               this.state.sex === 'MALE' ? <View style={[styles.fontView]} ><AntDesign name="check" size={14} /></View> : null
             }
@@ -60,7 +60,7 @@ export default class Sex extends React.Component {
 
         <TouchableOpacity onPress={this.changeSex.bind(this, 'FEMALE')}>
           <View style={[styles.eachView]}>
-            <View style={[styles.fontView]} ><Text style={[globalStyle.commonFont2, styles.font2]}>女</Text></View>
+            <View style={[styles.fontView]} ><Text style={[globalStyle.gray15, styles.font2]}>女</Text></View>
             {
               this.state.sex === 'FEMALE' ? <View style={[styles.fontView]} ><AntDesign name="check" size={14} /></View> : null
             }

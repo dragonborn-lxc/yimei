@@ -94,7 +94,7 @@ class MySelfHome extends React.Component {
                 });
               }}>
             <View>
-              <Text style={globalStyle.commonFont}>订单</Text>
+              <Text style={globalStyle.black15}>订单</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
@@ -104,10 +104,10 @@ class MySelfHome extends React.Component {
                 });
               }}>
             <View>
-              <Text style={globalStyle.commonFont}>收藏</Text>
+              <Text style={globalStyle.black15}>收藏</Text>
             </View>
           </TouchableOpacity>
-          <Text style={globalStyle.commonFont}>积分</Text>
+          <Text style={globalStyle.black15}>积分</Text>
         </View>
         <View style={styles.touchView}>
           <TouchableOpacity onPress={() => {
@@ -117,24 +117,24 @@ class MySelfHome extends React.Component {
                 });
               }}>
             <View style={styles.touchContentView} >
-              <Text style={globalStyle.commonFont}>用户信息</Text>
-              <Text style={globalStyle.commonFont}>></Text>
+              <Text style={globalStyle.black15}>用户信息</Text>
+              <Text style={globalStyle.black15}>></Text>
             </View>
           </TouchableOpacity>
         </View>
         <View style={styles.touchView}>
           <TouchableOpacity onPress={() => {this.props.navigation.navigate('ContactUs')}}>
             <View style={styles.touchContentView} >
-              <Text style={globalStyle.commonFont}>联系客服</Text>
-              <Text style={globalStyle.commonFont}>></Text>
+              <Text style={globalStyle.black15}>联系客服</Text>
+              <Text style={globalStyle.black15}>></Text>
             </View>
           </TouchableOpacity>
         </View>
         <View style={[styles.touchView, {borderBottomColor: 'gray', borderBottomWidth: 0.5}]}>
           <TouchableOpacity onPress={() => {this.props.navigation.navigate('AboutUs')}}>
             <View style={styles.touchContentView} >
-              <Text style={globalStyle.commonFont}>关于我们</Text>
-              <Text style={globalStyle.commonFont}>></Text>
+              <Text style={globalStyle.black15}>关于我们</Text>
+              <Text style={globalStyle.black15}>></Text>
             </View>
           </TouchableOpacity>
         </View>
