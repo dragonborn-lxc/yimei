@@ -58,8 +58,8 @@ const AppNavigator = createBottomTabNavigator({
   initialRouteName: 'home',
   order: ['home', 'classify', 'subject', 'myself'],
   tabBarOptions: {
-    activeTintColor: '#020202',
-    inactiveTintColor: '#938D8C',
+    activeTintColor: '#000000',
+    inactiveTintColor: '#8D8D8D',
     labelStyle: {
       fontSize: 11,
       marginBottom: 5
