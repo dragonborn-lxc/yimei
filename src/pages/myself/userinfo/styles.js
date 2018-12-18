@@ -15,12 +15,6 @@ export default StyleSheet.create({
     marginRight: 10,
     flexDirection: 'row',
   },
-  font: {
-    fontSize: 12
-  },
-  font2: {
-    fontSize: 14
-  },
   eachInputView: {
     justifyContent: 'center',
     height: 32,

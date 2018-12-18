@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import globalStyle from '../../../../assets/nativeStyles/global';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import styles from './styles'
 
 
@@ -16,13 +17,21 @@ export default class Mobile extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     title: '联系方式',
-    headerTitleStyle: globalStyle.commonFont,
-    headerTintColor: 'gray',
+    headerTitleStyle: globalStyle.commonFont2,
+    headerLeft:(
+         	<View style={{justifyContent:'center', marginLeft: 10,}}>
+            <TouchableOpacity onPress={() => navigation.goBack(null)} >
+                <View>
+                  <AntDesign name="left" size={16} color='gray' />
+                </View>
+            </TouchableOpacity>
+         	</View>
+        ),
     headerRight:(
          	<View style={{justifyContent:'center', marginRight: 10,}}>
             <TouchableOpacity onPress={() => navigation.goBack(null)} >
                 <View>
-                  <Text style={[globalStyle.commonFont2, styles.font2]}>完成</Text>
+                  <Text style={globalStyle.commonFont3}>完成</Text>
                 </View>
             </TouchableOpacity>
          	</View>

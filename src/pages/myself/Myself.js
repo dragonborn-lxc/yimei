@@ -7,6 +7,7 @@ import globalStyle from '../../../assets/nativeStyles/global';
 import ContactUs from './ContactUs';
 import AboutUs from './AboutUs';
 import OrderList from './OrderList';
+import OrderDetail from './OrderDetail';
 import MyCollect from './MyCollect';
 import UserInfo from './userinfo/UserInfo';
 import Realname from './userinfo/Realname';
@@ -147,6 +148,7 @@ const MySelfNavigator = createStackNavigator(
     MySelfHome: MySelfHome,
     MyCollect: MyCollect,
     OrderList: OrderList,
+    OrderDetail: OrderDetail,
     ContactUs: ContactUs,
     AboutUs: AboutUs,
     UserInfo: UserInfo,

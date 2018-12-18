@@ -15,7 +15,9 @@ import Myself from './myself/Myself';
 type Props = {};
 
 export default class App extends Component<Props> {
+
   async componentWillMount() {
+
     SplashScreen.hide();
   }
   render() {
@@ -55,7 +57,7 @@ const AppNavigator = createBottomTabNavigator({
     })
   }
 },{
-  initialRouteName: 'home',
+  initialRouteName: 'myself',
   order: ['home', 'classify', 'subject', 'myself'],
   tabBarOptions: {
     activeTintColor: '#000000',

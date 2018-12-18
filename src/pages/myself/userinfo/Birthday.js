@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import {
   DatePickerIOS,
   View,
-  StyleSheet,
   Text,
   TouchableOpacity
 } from 'react-native';
 import moment from 'moment';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import globalStyle from '../../../../assets/nativeStyles/global';
-import styles from './styles';
 
 export default class Birthday extends Component {
   constructor(props) {
@@ -28,13 +26,21 @@ export default class Birthday extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     title: '出生年月',
-    headerTitleStyle: globalStyle.commonFont,
-    headerTintColor: 'gray',
+    headerTitleStyle: globalStyle.commonFont2,
+    headerLeft:(
+         	<View style={{justifyContent:'center', marginLeft: 10,}}>
+            <TouchableOpacity onPress={() => navigation.goBack(null)} >
+                <View>
+                  <AntDesign name="left" size={16} color='gray' />
+                </View>
+            </TouchableOpacity>
+         	</View>
+        ),
     headerRight:(
          	<View style={{justifyContent:'center', marginRight: 10,}}>
             <TouchableOpacity onPress={() => navigation.goBack(null)} >
                 <View>
-                  <Text style={[globalStyle.commonFont2, styles.font2]}>完成</Text>
+                  <Text style={globalStyle.commonFont3}>完成</Text>
                 </View>
             </TouchableOpacity>
          	</View>
@@ -51,17 +57,15 @@ export default class Birthday extends Component {
 
   render() {
     return (
-      <View>
-        <View><Text>{this.state.birthday}</Text></View>
-        <View >
-          <DatePickerIOS
-            date={this.state.chosenDate}
-            onDateChange={this.setDate}
-            locale='zh-Hans'
-            mode='date'
-            maximumDate={new Date()}
-          />
-        </View>
+      <View style={{flex: 1,
+      justifyContent: 'center'}}>
+        <DatePickerIOS
+          date={this.state.chosenDate}
+          onDateChange={this.setDate}
+          locale='zh-Hans'
+          mode='date'
+          maximumDate={new Date()}
+        />
       </View>
     )
   }
