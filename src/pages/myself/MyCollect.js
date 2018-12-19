@@ -22,7 +22,7 @@ export default class MyCollect extends Component {
           tab: 'ask',
           data: [],
           page: 1,
-          limit: 5,
+          limit: 10,
           refreshing: false,
           loading: true,
           error: null,
@@ -50,7 +50,7 @@ export default class MyCollect extends Component {
       fetch("https://cnodejs.org/api/v1/topics?tab=" + this.state.tab + "&page=" +this.state.page + "&limit=" + this.state.limit)
         .then((response) => response.json())        // json方式解析，如果是text就是 response.text()
         .then((responseData) => {   // 获取到的数据处理
-          console.info(this.state.page)
+          console.info(this.state.page, this.state.actionType)
           let foot = 0;
           if(this.state.page>=totalPage){
               foot = 1;//listView底部显示没有更多数据了
@@ -81,9 +81,9 @@ export default class MyCollect extends Component {
         this.setState({
             page:1,
             refreshing:true,//tag,下拉刷新中，加载完全，就设置成flase
-            data:[]
-        });
-        this.fetchData()
+            data:[],
+        }, ()=>this.fetchData());
+
     }
 
     //加载等待页
@@ -247,10 +247,9 @@ export default class MyCollect extends Component {
         } else {
             this.state.page++;
             //底部显示正在加载更多数据
-            this.setState({showFoot:2});
-        }
-        if (this.state.page>1) {
-            this.fetchData();
+            this.setState({
+              showFoot:2,
+            }, ()=>this.fetchData());
         }
     }
 }

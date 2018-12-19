@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Goback from '../../../common/Goback';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import globalStyle from '../../../../assets/nativeStyles/global';
@@ -11,15 +11,7 @@ export default class UserInfo extends React.Component {
   static navigationOptions =({navigation})=> ({
     title: '个人信息',
     headerTitleStyle: globalStyle.black15,
-    headerLeft:(
-         	<View style={{justifyContent:'center', marginLeft: 10,}}>
-            <TouchableOpacity onPress={() => navigation.goBack(null)} >
-                <View>
-                  <AntDesign name="left" size={16} color='gray' />
-                </View>
-            </TouchableOpacity>
-         	</View>
-        ),
+    headerLeft: <Goback navigation={navigation}/>,
     headerBackTitle: null,
   });
   render() {

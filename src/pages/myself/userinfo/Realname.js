@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, TouchableOpacity, TextInput } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Goback from '../../../common/Goback';
 import globalStyle from '../../../../assets/nativeStyles/global';
 import styles from './styles'
 
@@ -19,13 +19,7 @@ export default class Realname extends React.Component {
     title: '真实姓名',
     headerTitleStyle: globalStyle.black15,
     headerLeft:(
-         	<View style={{justifyContent:'center', marginLeft: 10,}}>
-            <TouchableOpacity onPress={() => navigation.goBack(null)} >
-                <View>
-                  <AntDesign name="left" size={16} color='gray' />
-                </View>
-            </TouchableOpacity>
-         	</View>
+         	<Goback navigation={navigation}/>
         ),
     headerRight:(
          	<View style={{justifyContent:'center', marginRight: 10,}}>

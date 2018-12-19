@@ -6,8 +6,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 import moment from 'moment';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import globalStyle from '../../../../assets/nativeStyles/global';
+import Goback from '../../../common/Goback';
 
 export default class Birthday extends Component {
   constructor(props) {
@@ -27,15 +27,7 @@ export default class Birthday extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: '出生年月',
     headerTitleStyle: globalStyle.black15,
-    headerLeft:(
-         	<View style={{justifyContent:'center', marginLeft: 10,}}>
-            <TouchableOpacity onPress={() => navigation.goBack(null)} >
-                <View>
-                  <AntDesign name="left" size={16} color='gray' />
-                </View>
-            </TouchableOpacity>
-         	</View>
-        ),
+    headerLeft: <Goback navigation={navigation}/>,
     headerRight:(
          	<View style={{justifyContent:'center', marginRight: 10,}}>
             <TouchableOpacity onPress={() => navigation.goBack(null)} >

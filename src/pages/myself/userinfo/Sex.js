@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
-
+import Goback from '../../../common/Goback';
 import globalStyle from '../../../../assets/nativeStyles/global';
 import styles from './styles'
 
@@ -18,15 +18,7 @@ export default class Sex extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: '性别',
     headerTitleStyle: globalStyle.black15,
-    headerLeft:(
-         	<View style={{justifyContent:'center', marginLeft: 10,}}>
-            <TouchableOpacity onPress={() => navigation.goBack(null)} >
-                <View>
-                  <AntDesign name="left" size={16} color='gray' />
-                </View>
-            </TouchableOpacity>
-         	</View>
-        ),
+    headerLeft: <Goback navigation={navigation}/>,
     headerRight:(
          	<View style={{justifyContent:'center', marginRight: 10,}}>
             <TouchableOpacity onPress={() => navigation.goBack(null)} >
