@@ -38,9 +38,7 @@ export default class OrderList extends Component {
     static navigationOptions = ({ navigation }) => ({
       title: '我的订单',
       headerTitleStyle: globalStyle.black15,
-      headerLeft:(
-           	<Goback navigation={navigation}/>
-          ),
+      headerLeft:<Goback navigation={navigation}/> ,
     });
 
     //网络请求——获取数据
@@ -128,7 +126,7 @@ export default class OrderList extends Component {
     }
 
     //返回itemView
-    _renderItemView({item}) {
+    _renderItemView =({item})=> {
         return (
           <View style={styles.row}>
             <View style={styles.rowTitle}>
@@ -141,7 +139,14 @@ export default class OrderList extends Component {
 
             </View>
             <DashLine/>
-            <View style={styles.rowContent}>
+            <TouchableOpacity style={styles.rowContent}
+              onPress={() => {
+                    this.props.navigation.navigate('OrderDetail', {
+                      itemId: 86,
+                      otherParam: 'anything you want here',
+                    });
+                  }}
+              >
               <View>
                 <Image style={styles.image} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
               </View>
@@ -170,7 +175,7 @@ export default class OrderList extends Component {
                 </View>
 
               </View>
-            </View>
+            </TouchableOpacity>
 
           </View>
         );

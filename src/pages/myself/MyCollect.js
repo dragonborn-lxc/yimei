@@ -118,21 +118,21 @@ export default class MyCollect extends Component {
             <View >
               <Image style={styles.image} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
             </View>
-            <View style={styles.rowData}>
-              <View style={styles.rowDataTitle}>
+            <View style={styles.rowContentData}>
+              <View style={styles.rowContentTitle}>
                 <Text style={globalStyle.black15}>{item.id}</Text>
               </View>
-              <View style={styles.rowDataAuther}>
+              <View style={styles.rowContentAuther}>
                 <Text style={globalStyle.black12}>作者名字</Text>
               </View>
 
-              <View style={styles.rowDataDesc}>
+              <View style={styles.rowContentDesc}>
                 <Text style={globalStyle.gray11}>题材/</Text>
                 <Text style={globalStyle.gray11}>材质/</Text>
                 <Text style={globalStyle.gray11}>大小/</Text>
                 <Text style={globalStyle.gray11}>创作年份</Text>
               </View>
-              <View style={styles.rowDataPrice}>
+              <View style={styles.rowContentPrice}>
                 <Text style={globalStyle.red14}>999999.99元</Text>
               </View>
             </View>
@@ -288,22 +288,22 @@ const styles = StyleSheet.create({
       height: 105,
       width: 105,
     },
-    rowData: {
+    rowContentData: {
       height: 105,
       width: 195,
       marginLeft: 25,
     },
-    rowDataTitle: {
+    rowContentTitle: {
       height: 55,
     },
-    rowDataAuther: {
+    rowContentAuther: {
       height: 16,
     },
-    rowDataDesc: {
+    rowContentDesc: {
       height: 16,
       flexDirection: 'row',
     },
-    rowDataPrice: {
+    rowContentPrice: {
       height: 16,
     },
     actionsContainer: {
