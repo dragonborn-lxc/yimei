@@ -50,7 +50,6 @@ export default class MyCollect extends Component {
       fetch("https://cnodejs.org/api/v1/topics?tab=" + this.state.tab + "&page=" +this.state.page + "&limit=" + this.state.limit)
         .then((response) => response.json())        // json方式解析，如果是text就是 response.text()
         .then((responseData) => {   // 获取到的数据处理
-          console.info(this.state.page, this.state.actionType)
           let foot = 0;
           if(this.state.page>=totalPage){
               foot = 1;//listView底部显示没有更多数据了
@@ -154,7 +153,6 @@ export default class MyCollect extends Component {
 
     deleteRow =(deleteItem)=> {
       // todo 删除数据
-      console.info('delete data');
       const newData = [...this.state.data];
 
       const prevIndex = this.state.data.findIndex(item => item === deleteItem);

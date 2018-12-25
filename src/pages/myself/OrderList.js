@@ -47,7 +47,6 @@ export default class OrderList extends Component {
       fetch("https://cnodejs.org/api/v1/topics?tab=" + this.state.tab + "&page=" +this.state.page + "&limit=" + this.state.limit)
         .then((response) => response.json())        // json方式解析，如果是text就是 response.text()
         .then((responseData) => {   // 获取到的数据处理
-          console.info(this.state.page, this.state.tab, this.state.actionType);
           let foot = 0;
           if(this.state.page>=totalPage){
               foot = 1;//listView底部显示没有更多数据了
@@ -212,7 +211,6 @@ export default class OrderList extends Component {
             <View style={styles.tab}>
             {
               this.tabList.map((item, index)=>{
-                console.info(index);
                   return (
                     <View key={index} style={this.state.selectItem === index ?
                          [styles.eachTab, {borderBottomColor: 'black', borderBottomWidth: 1,}] : [styles.eachTab]}>

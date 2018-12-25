@@ -78,18 +78,3 @@ export default class UserInfo extends React.Component {
     );
   }
 }
-
-class Username extends React.Component {
-  static navigationOptions = {
-    title: '名字',
-    headerTitleStyle: globalStyle.black15,
-    headerTintColor: 'gray',
-  };
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>名字</Text>
-      </View>
-    );
-  }
-}

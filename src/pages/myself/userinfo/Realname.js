@@ -2,7 +2,8 @@ import React from 'react'
 import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import Goback from '../../../common/Goback';
 import globalStyle from '../../../../assets/nativeStyles/global';
-import styles from './styles'
+import styles from './styles';
+import FinishedBtn from './FinishedBtn';
 
 
 export default class Realname extends React.Component {
@@ -18,18 +19,8 @@ export default class Realname extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: '真实姓名',
     headerTitleStyle: globalStyle.black15,
-    headerLeft:(
-         	<Goback navigation={navigation}/>
-        ),
-    headerRight:(
-         	<View style={{justifyContent:'center', marginRight: 10,}}>
-            <TouchableOpacity onPress={() => navigation.goBack(null)} >
-                <View>
-                  <Text style={globalStyle.gray14}>完成</Text>
-                </View>
-            </TouchableOpacity>
-         	</View>
-        ),
+    headerLeft: <Goback navigation={navigation}/> ,
+    headerRight: <FinishedBtn navigation={navigation}/> ,
   });
 
   render() {

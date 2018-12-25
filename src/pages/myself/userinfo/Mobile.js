@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import globalStyle from '../../../../assets/nativeStyles/global';
 import Goback from '../../../common/Goback';
 import styles from './styles'
-
+import FinishedBtn from './FinishedBtn';
 
 export default class Mobile extends React.Component {
 
@@ -18,16 +18,8 @@ export default class Mobile extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: '联系方式',
     headerTitleStyle: globalStyle.black15,
-    headerLeft: <Goback navigation={navigation}/>,
-    headerRight:(
-         	<View style={{justifyContent:'center', marginRight: 10,}}>
-            <TouchableOpacity onPress={() => navigation.goBack(null)} >
-                <View>
-                  <Text style={globalStyle.gray14}>完成</Text>
-                </View>
-            </TouchableOpacity>
-         	</View>
-        ),
+    headerLeft: <Goback navigation={navigation}/> ,
+    headerRight: <FinishedBtn navigation={navigation}/>
   });
 
   render() {

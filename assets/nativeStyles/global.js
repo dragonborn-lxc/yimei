@@ -5,6 +5,7 @@ const color = {
   black: 'rgb(0,0,0)',
   red: 'rgb(255,65,65)',
   green: 'rgb(63,183,92)',
+  white: 'rgb(255,255,255)',
 }
 
 export default StyleSheet.create({
@@ -36,6 +37,22 @@ export default StyleSheet.create({
   black18: { // 黑色
     fontSize: 18,
     color: color.black,
+    fontWeight: ('normal', '100'),
+  },
+
+  white10: { //
+    fontSize: 10,
+    color: color.white,
+    fontWeight: ('normal', '100'),
+  },
+  white12: { //
+    fontSize: 12,
+    color: color.white,
+    fontWeight: ('normal', '100'),
+  },
+  white15: { //
+    fontSize: 15,
+    color: color.white,
     fontWeight: ('normal', '100'),
   },
 

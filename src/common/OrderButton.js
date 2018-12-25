@@ -18,7 +18,7 @@ export default class OrderButton extends Component {
     buttonName: '按钮',
     onPress: () => null,
     width: 60,
-    height: 18,
+    height: 20,
     cycleColor: 'black',
     fontColor: 'rgb(0,0,0)',
     fontSize: 11,
@@ -30,15 +30,12 @@ export default class OrderButton extends Component {
 
   render() {
     return (
-      <View style={[styles.submit,{
-            width : this.props.width,
-            height: this.props.height,
-            backgroundColor: this.props.cycleColor,
-          }]}>
-        <TouchableOpacity style={[styles.submit2,{
-          width : this.props.width - 1,
-          height: this.props.height - 1 ,
-          }]}
+      <View style={[styles.submit, {
+          borderColor: this.props.cycleColor,
+          height: this.props.height,
+          width: this.props.width,
+        }]}>
+        <TouchableOpacity
           onPress={this.props.onPress}>
           <Text style={[styles.submitText, {
             fontSize: this.props.fontSize,
@@ -46,6 +43,7 @@ export default class OrderButton extends Component {
             }]}>{this.props.buttonName}</Text>
         </TouchableOpacity>
       </View>
+
     )
   }
 }
@@ -55,12 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius:10,
-  },
-  submit2:{
-    backgroundColor:'white',
-    borderRadius:10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderWidth: 1,
   },
   submitText:{
       textAlign:'center',

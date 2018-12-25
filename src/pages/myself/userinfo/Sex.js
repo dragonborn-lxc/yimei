@@ -3,7 +3,8 @@ import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity } from '
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Goback from '../../../common/Goback';
 import globalStyle from '../../../../assets/nativeStyles/global';
-import styles from './styles'
+import styles from './styles';
+import FinishedBtn from './FinishedBtn';
 
 export default class Sex extends React.Component {
 
@@ -18,16 +19,8 @@ export default class Sex extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: '性别',
     headerTitleStyle: globalStyle.black15,
-    headerLeft: <Goback navigation={navigation}/>,
-    headerRight:(
-         	<View style={{justifyContent:'center', marginRight: 10,}}>
-            <TouchableOpacity onPress={() => navigation.goBack(null)} >
-                <View>
-                  <Text style={globalStyle.gray14}>完成</Text>
-                </View>
-            </TouchableOpacity>
-         	</View>
-        ),
+    headerLeft: <Goback navigation={navigation}/> ,
+    headerRight: <FinishedBtn navigation={navigation}/> ,
   });
 
   changeSex=(sex)=>{

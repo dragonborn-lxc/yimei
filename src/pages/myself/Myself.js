@@ -1,6 +1,8 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { Card } from 'react-native-elements';
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 
 import globalStyle from '../../../assets/nativeStyles/global';
@@ -14,40 +16,50 @@ import Realname from './userinfo/Realname';
 import Sex from './userinfo/Sex';
 import Birthday from './userinfo/Birthday';
 import Mobile from './userinfo/Mobile';
+import Login from './login/Login';
+import ForgetPassword from './login/ForgetPassword';
+import ResetPassword from './login/ResetPassword';
+import Register from './login/Register';
+import RuleInfo from './RuleInfo';
+
+import {LOGGED_OUT, LOGGED_IN} from './login/LoginType'
 
 const styles = StyleSheet.create({
-  imageView: {
-    marginTop: 66,
+  imageWrap: {
     height: 100,
     alignItems: 'center',
+    height: 147,
   },
-  image: {
-    width: 60,
-    height: 60,
+  loginBtn: {
+    marginTop: 10,
+    marginLeft: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    height:22,
+    backgroundColor:'black',
+    borderRadius: 8
+  },
+  scoreWrap: {
+    height: 108,
   },
   scoreView: {
+    marginTop: 22,
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginLeft: 86,
     marginRight: 90,
-    height: 40
-  },
-  scoreText: {
-    fontSize: 20,
+    height: 40,
   },
   scoreTypeView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginLeft: 80,
     marginRight: 80,
-    height: 48,
-
-  },
-  scoreType: {
-
+    height: 47,
   },
   touchView :{
-    height: 68,
+    height: 69,
     borderTopWidth: 0.5,
     borderTopColor: 'gray',
   },
@@ -61,67 +73,151 @@ const styles = StyleSheet.create({
 
 });
 
+
 class MySelfHome extends React.Component {
   static navigationOptions = {
     header: null,
     headerBackTitle: null,
+    gesturesEnabled: false,
     };
+
+  constructor(props) {
+    super(props);
+    console.info('constructor')
+    this.state = {
+      user: null,
+      loginType: LOGGED_OUT,
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  }
+  componentDidUpdate() {
+    this.onLogin();
+  }
+
+  onLogin=()=> {
+    if ( !this.state.user) {
+      let loginUser = this.props.navigation.getParam('user', null);
+      let loginStatus = loginUser && loginUser.loginStatus === LOGGED_IN ? LOGGED_IN : LOGGED_OUT;
+      this.setState({
+        user: loginUser,
+        loginType: loginStatus,
+      })
+    }
+  }
+
+  renderPortal(){
+    return(
+      <View style={styles.imageWrap}>
+      {
+        this.state.loginType === LOGGED_IN ?
+
+        <View style={{marginTop: 48}}>
+
+          <Card
+            containerStyle={{width: 60, height: 60, borderRadius: 100 }}
+            imageStyle={{
+              borderRadius: 100,
+              width: 60,
+              height: 60,
+              overflow: 'hidden', // This does the magic
+            }}
+            image={{ uri: this.state.user.portal}}
+          />
+        </View>
+
+        :
+        <View style={{marginTop: 58}}>
+          <EvilIcons name="user" size={90} />
+        </View>
+      }
+      </View>
+    )
+  }
+
+  renderScore(){
+    return (
+      <View style={styles.scoreWrap}>
+        {
+          this.state.loginType === LOGGED_IN ?
+          <>
+            <View style={styles.scoreView}>
+              <View>
+                <Text>0</Text>
+              </View>
+              <View>
+                <Text>0</Text>
+              </View>
+              <View>
+                <Text>0</Text>
+              </View>
+            </View>
+            <View style={styles.scoreTypeView}>
+              <TouchableOpacity onPress={() => {
+                    this.props.navigation.navigate('OrderList', {
+                      itemId: 86,
+                      otherParam: 'anything you want here',
+                    });
+                  }}>
+                <View>
+                  <Text style={globalStyle.black15}>订单</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                    this.props.navigation.navigate('MyCollect', {
+                      itemId: 86,
+                      otherParam: 'anything you want here',
+                    });
+                  }}>
+                <View>
+                  <Text style={globalStyle.black15}>收藏</Text>
+                </View>
+              </TouchableOpacity>
+              <Text style={globalStyle.black15}>积分</Text>
+            </View>
+          </>
+          :
+          <View style={[styles.scoreView, {justifyContent: 'center' }]}>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Login')}}>
+              <View style={styles.loginBtn}>
+                <Text style={globalStyle.white15}>登录</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        }
+      </View>
+    )
+  }
   render() {
     return (
       <View >
-        <View style={styles.imageView}>
-          <Image
-            style={styles.image}
-            source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
-          />
-        </View>
-        <View style={styles.scoreView}>
-          <View>
-            <Text>0</Text>
+        {
+          this.renderPortal()
+        }
+        {
+          this.renderScore()
+        }
+
+        {
+          this.state.loginType === LOGGED_IN ?
+          <View style={styles.touchView}>
+            <TouchableOpacity onPress={() => {
+                  this.props.navigation.navigate('UserInfo', {
+                    itemId: 86,
+                    otherParam: 'anything you want here',
+                  });
+                }}>
+              <View style={styles.touchContentView} >
+                <Text style={globalStyle.black15}>用户信息</Text>
+                <Text style={globalStyle.black15}>></Text>
+              </View>
+            </TouchableOpacity>
           </View>
-          <View>
-            <Text>0</Text>
-          </View>
-          <View>
-            <Text>0</Text>
-          </View>
-        </View>
-        <View style={styles.scoreTypeView}>
-          <TouchableOpacity onPress={() => {
-                this.props.navigation.navigate('OrderList', {
-                  itemId: 86,
-                  otherParam: 'anything you want here',
-                });
-              }}>
-            <View>
-              <Text style={globalStyle.black15}>订单</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {
-                this.props.navigation.navigate('MyCollect', {
-                  itemId: 86,
-                  otherParam: 'anything you want here',
-                });
-              }}>
-            <View>
-              <Text style={globalStyle.black15}>收藏</Text>
-            </View>
-          </TouchableOpacity>
-          <Text style={globalStyle.black15}>积分</Text>
-        </View>
-        <View style={styles.touchView}>
-          <TouchableOpacity onPress={() => {
-                this.props.navigation.navigate('UserInfo', {
-                  itemId: 86,
-                  otherParam: 'anything you want here',
-                });
-              }}>
-            <View style={styles.touchContentView} >
-              <Text style={globalStyle.black15}>用户信息</Text>
-              <Text style={globalStyle.black15}>></Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+          :
+          <View style={{height: 69,}} />
+        }
         <View style={styles.touchView}>
           <TouchableOpacity onPress={() => {this.props.navigation.navigate('ContactUs')}}>
             <View style={styles.touchContentView} >
@@ -156,6 +252,11 @@ const MySelfNavigator = createStackNavigator(
     Sex: Sex,
     Birthday: Birthday,
     Mobile: Mobile,
+    Login: Login,
+    RuleInfo: RuleInfo,
+    ForgetPassword: ForgetPassword,
+    ResetPassword: ResetPassword,
+    Register: Register,
   }
 );
 
