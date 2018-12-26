@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import globalStyle from '../../../../assets/nativeStyles/global';
+import {getLocalStorage, setLocalStorage, request} from '../../../common/util';
 import Goback from '../../../common/Goback';
 import styles from './styles';
 
@@ -24,26 +25,13 @@ export default class ResetPassword extends React.Component {
   });
 
   resetPassword=()=>{
-    fetch("https://cnodejs.org/api/v1/topics?page=1&limit=1")
-      .then((response) => response.json())
-      .then((responseData) => {   // 获取到的数据处理
-
-        let fakeUser = {
-          id: 1,
-          mobile: '13816978323',
-          nickname: 'poha',
-          token: 'test-token',
-          portal: 'https://facebook.github.io/react-native/docs/assets/favicon.png',
-          loginStatus: LOGGED_IN
-        }
-        console.info('resetPassword', this.props.navigation);
-        this.props.navigation.navigate('MySelfHome', {user: fakeUser});
-      })
-      .catch((error) => {
-        console.log('==> fetch error', error);
-        this.setState({ error: error, loading: false, refreshing: false});
-      })
-      .done();
+    request("/app/auth/open/resetPassword?mobile=" + this.state.mobile + "&password="+this.state.password,
+     (responseData)=>{
+       let user = responseData.result;
+       user.loginStatus = 'LOGGED_IN';
+       setLocalStorage("user", user);
+       this.props.navigation.navigate('MySelfHome', {});
+    }, 'POST');
   }
 
   render() {

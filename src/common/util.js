@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native';
-import API from '../common/api';
+import constants from '../../assets/constants';
+import {DropDownHolder} from './DropDownHolder';
 
 export const XHR_NOLOGIN = 'XHR_NOLOGIN';
 
@@ -80,4 +81,31 @@ export function getReturnNavKey(routes, routeName) {
   }
 
   return key;
+}
+
+
+export function request(partUrl, success_fn, method, headers, body) {
+
+  let url = constants.BASE_URL + partUrl;
+  let _method = method ? method : 'GET';
+
+  console.info(url);
+  fetch(url, {
+    method: _method,
+    headers: headers,
+    body: body
+  })
+  .then((response) => response.json())
+  .then((responseData) => {   // 获取到的数据处理
+    if(responseData.error && responseData.error.code) {
+      DropDownHolder.getDropDown().alertWithType('error', 'Error', responseData.error.code + ": " + responseData.error.message);
+    }else {
+      success_fn(responseData);
+    }
+  })
+  .catch((error) => {
+    console.log('==> fetch error', error);
+    DropDownHolder.getDropDown.alertWithType('error', 'Error', error);
+  })
+  .done();
 }

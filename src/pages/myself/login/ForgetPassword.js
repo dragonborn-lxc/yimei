@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import globalStyle from '../../../../assets/nativeStyles/global';
+import {request} from '../../../common/util';
 import Goback from '../../../common/Goback';
 import styles from './styles';
 import MyCountTime from './MyCountTime';
@@ -12,8 +13,8 @@ export default class ForgetPassword extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mobile: null,
-      code: null,
+      mobile: "",
+      code: "",
       getCodeType: GET_CODE,
     }
   }
@@ -28,35 +29,14 @@ export default class ForgetPassword extends React.Component {
     this.setState({
       getCodeType: WAIT_CODE
     })
-
-    fetch("https://cnodejs.org/api/v1/topics?page=1&limit=1")
-      .then((response) => response.json())
-      .then((responseData) => {   // 获取到的数据处理
-
-      })
-      .catch((error) => {
-        console.log('==> fetch error', error);
-        this.setState({ error: error, loading: false, refreshing: false});
-      })
-      .done();
+    request("/app/auth/open/sendSms?mobile="+this.state.mobile, ()=>{}, 'POST');
   }
 
   verifyCode=()=>{
-
-    fetch("https://cnodejs.org/api/v1/topics?page=1&limit=1")
-      .then((response) => response.json())
-      .then((responseData) => {   // 获取到的数据处理
-        this.props.navigation.navigate('ResetPassword');
-      })
-      .catch((error) => {
-        console.log('==> fetch error', error);
-        this.setState({ error: error, loading: false, refreshing: false});
-      })
-      .done();
+    request("/app/auth/open/verifySms?mobile="+this.state.mobile + "&code="+ this.state.code, ()=>{
+      this.props.navigation.navigate('ResetPassword', {mobile: this.state.mobile});
+    }, 'POST');
   }
-
-
-
 
   renderCode =()=> {
     return (

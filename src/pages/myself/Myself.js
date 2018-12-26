@@ -4,7 +4,7 @@ import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity } from '
 import { Card } from 'react-native-elements';
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
-
+import {getLocalStorage, setLocalStorage, request} from '../../common/util';
 import globalStyle from '../../../assets/nativeStyles/global';
 import ContactUs from './ContactUs';
 import AboutUs from './AboutUs';
@@ -99,12 +99,17 @@ class MySelfHome extends React.Component {
 
   onLogin=()=> {
     if ( !this.state.user) {
-      let loginUser = this.props.navigation.getParam('user', null);
-      let loginStatus = loginUser && loginUser.loginStatus === LOGGED_IN ? LOGGED_IN : LOGGED_OUT;
-      this.setState({
-        user: loginUser,
-        loginType: loginStatus,
-      })
+      getLocalStorage("user", (res)=>{
+        let loginUser = res;
+        let loginStatus = loginUser && loginUser.loginStatus === LOGGED_IN ? LOGGED_IN : LOGGED_OUT;
+        loginUser.portal = 'https://facebook.github.io/react-native/docs/assets/favicon.png';
+        
+        this.setState({
+          user: loginUser,
+          loginType: loginStatus,
+        })
+      });
+
     }
   }
 

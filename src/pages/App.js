@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Feather from 'react-native-vector-icons/Feather'
 import SplashScreen from 'react-native-splash-screen';
 import {createBottomTabNavigator, createAppContainer} from 'react-navigation';
+import DropdownAlert from 'react-native-dropdownalert';
+import {DropDownHolder} from '../common/DropDownHolder'
 
 import Home from './home/Home';
 import Subject from './subject/Subject';
 import Classify from './classify/Classify';
 import Myself from './myself/Myself';
+
 
 type Props = {};
 
@@ -22,7 +25,11 @@ export default class App extends Component<Props> {
   }
   render() {
     return (
-      <AppContainer/>
+      <>
+        <AppContainer />
+        <DropdownAlert ref={(ref) => DropDownHolder.setDropDown(ref)}/>
+      </>
+
     );
   }
 }
@@ -57,7 +64,7 @@ const AppNavigator = createBottomTabNavigator({
     })
   }
 },{
-  initialRouteName: 'myself',
+  initialRouteName: 'home',
   order: ['home', 'classify', 'subject', 'myself'],
   tabBarOptions: {
     activeTintColor: '#000000',
