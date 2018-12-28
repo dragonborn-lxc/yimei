@@ -35,5 +35,35 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
+
+  pView: {
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 30,
+  },
+  pTitle: {
+    color: 'rgb(0,0,0)',
+    fontSize: 22,
+    lineHeight: 33,
+    textAlign: 'center',
+  },
+  pSignal: {
+    color: 'rgb(0,0,0)',
+    fontSize: 11,
+    textAlign: 'right',
+  },
+  pReturn: {
+    height: 20
+  },
+  pSubTitle: {
+    color: 'rgb(0,0,0)',
+    fontSize: 18,
+    lineHeight: 22,
+  },
+  pContent: {
+    color: 'rgb(0,0,0)',
+    fontSize: 13,
+    lineHeight: 22,
+  },
+
 })

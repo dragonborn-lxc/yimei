@@ -6,8 +6,8 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 import {getLocalStorage, setLocalStorage, request} from '../../common/util';
 import globalStyle from '../../../assets/nativeStyles/global';
-import ContactUs from './ContactUs';
 import AboutUs from './AboutUs';
+import ContactUs from './ContactUs';
 import OrderList from './OrderList';
 import OrderDetail from './OrderDetail';
 import MyCollect from './MyCollect';
@@ -15,12 +15,12 @@ import UserInfo from './userinfo/UserInfo';
 import Realname from './userinfo/Realname';
 import Sex from './userinfo/Sex';
 import Birthday from './userinfo/Birthday';
-import Mobile from './userinfo/Mobile';
 import Login from './login/Login';
 import ForgetPassword from './login/ForgetPassword';
 import ResetPassword from './login/ResetPassword';
 import Register from './login/Register';
-import RuleInfo from './RuleInfo';
+import Agreement from './login/Agreement';
+import Privacy from './login/Privacy';
 
 import {LOGGED_OUT, LOGGED_IN} from './login/LoginType'
 
@@ -79,11 +79,10 @@ class MySelfHome extends React.Component {
     header: null,
     headerBackTitle: null,
     gesturesEnabled: false,
-    };
+  };
 
   constructor(props) {
     super(props);
-    console.info('constructor')
     this.state = {
       user: null,
       loginType: LOGGED_OUT,
@@ -103,7 +102,7 @@ class MySelfHome extends React.Component {
         let loginUser = res;
         let loginStatus = loginUser && loginUser.loginStatus === LOGGED_IN ? LOGGED_IN : LOGGED_OUT;
         loginUser.portal = 'https://facebook.github.io/react-native/docs/assets/favicon.png';
-        
+
         this.setState({
           user: loginUser,
           loginType: loginStatus,
@@ -111,6 +110,13 @@ class MySelfHome extends React.Component {
       });
 
     }
+  }
+
+  gotoNotify =(type)=> {
+    request("/app/notify/open/find?type=" + type,
+     (responseData)=>{
+       this.props.navigation.navigate('Notify', {type: type, content: responseData.result.content});
+    }, 'GET');
   }
 
   renderPortal(){
@@ -250,15 +256,15 @@ const MySelfNavigator = createStackNavigator(
     MyCollect: MyCollect,
     OrderList: OrderList,
     OrderDetail: OrderDetail,
-    ContactUs: ContactUs,
     AboutUs: AboutUs,
+    ContactUs: ContactUs,
     UserInfo: UserInfo,
     Realname: Realname,
     Sex: Sex,
     Birthday: Birthday,
-    Mobile: Mobile,
     Login: Login,
-    RuleInfo: RuleInfo,
+    Agreement: Agreement,
+    Privacy: Privacy,
     ForgetPassword: ForgetPassword,
     ResetPassword: ResetPassword,
     Register: Register,

@@ -27,7 +27,15 @@ export default class UserInfo extends React.Component {
     return true;
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.setUser();
+  }
+
+  componentDidUpdate() {
+    this.setUser();
+  }
+
+  setUser=()=> {
     getLocalStorage("user", (res)=>{
       this.setState({
         user: res,
@@ -42,6 +50,16 @@ export default class UserInfo extends React.Component {
     headerBackTitle: null,
   });
 
+  renderSex() {
+    if(this.state.user.sexEnum === 'MALE') {
+      return <Text style={globalStyle.black12}>男&nbsp;&nbsp;</Text>
+    } else if (this.state.user.sexEnum === 'FEMALE') {
+      return <Text style={globalStyle.black12}>女&nbsp;&nbsp;</Text>
+    } else {
+      return null
+    }
+  }
+
   render() {
 
     const { navigation } = this.props;
@@ -54,7 +72,6 @@ export default class UserInfo extends React.Component {
           <View style={styles.fontView} ><Text style={globalStyle.gray14}>用户名</Text></View>
           <View style={styles.fontView} ><Text style={globalStyle.black12}>{this.state.user.nickname}</Text></View>
         </View>
-
         <View style={styles.eachView}>
           <View style={styles.fontView} ><Text style={globalStyle.gray14}>真实姓名</Text></View>
           <View style={styles.fontView} >
@@ -70,9 +87,9 @@ export default class UserInfo extends React.Component {
         <View style={styles.eachView}>
           <View style={styles.fontView} ><Text style={globalStyle.gray14}>性别</Text></View>
           <View style={styles.fontView} >
-            <Text style={globalStyle.black12}>{this.state.user.sexEnum}&nbsp;&nbsp;</Text>
+            {this.renderSex()}
             <TouchableOpacity onPress={() => {this.props.navigation.navigate('Sex',  {
-              id: this.state.user.id, sex: this.state.user.sexEnum,
+              id: this.state.user.id, sexEnum: this.state.user.sexEnum,
             })}}>
               <Entypo name="chevron-with-circle-right" size={14} color='gray' />
             </TouchableOpacity>
@@ -93,14 +110,7 @@ export default class UserInfo extends React.Component {
 
         <View style={styles.eachView}>
           <View style={styles.fontView} ><Text style={globalStyle.gray14}>联系方式</Text></View>
-          <View style={styles.fontView} >
-            <Text style={globalStyle.black12}>{this.state.user.mobile}&nbsp;&nbsp;</Text>
-            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Mobile', {
-                id: this.state.user.id, mobile: this.state.user.mobile
-              })}}>
-              <Entypo name="chevron-with-circle-right" size={14} color='gray' />
-            </TouchableOpacity>
-          </View>
+          <View style={styles.fontView} ><Text style={globalStyle.black12}>{this.state.user.mobile}</Text></View>
         </View>
       </View>
     );

@@ -88,15 +88,17 @@ export function request(partUrl, success_fn, method, headers, body) {
 
   let url = constants.BASE_URL + partUrl;
   let _method = method ? method : 'GET';
+  let _body = body ? JSON.stringify(body) : null;
 
-  console.info(url);
+  console.info(url, headers, body);
   fetch(url, {
     method: _method,
     headers: headers,
-    body: body
+    body: _body
   })
   .then((response) => response.json())
   .then((responseData) => {   // 获取到的数据处理
+    console.info('result', responseData)
     if(responseData.error && responseData.error.code) {
       DropDownHolder.getDropDown().alertWithType('error', 'Error', responseData.error.code + ": " + responseData.error.message);
     }else {
@@ -105,7 +107,7 @@ export function request(partUrl, success_fn, method, headers, body) {
   })
   .catch((error) => {
     console.log('==> fetch error', error);
-    DropDownHolder.getDropDown.alertWithType('error', 'Error', error);
+    DropDownHolder.getDropDown().alertWithType('error', 'Error', error);
   })
   .done();
 }

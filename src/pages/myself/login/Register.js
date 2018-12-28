@@ -175,6 +175,21 @@ export default class Register extends React.Component {
             <Text style={globalStyle.white12}>注 册</Text>
           </View>
         }
+
+        <View style={{flexDirection:'row', marginTop: 10}}>
+          <View><Text style={globalStyle.gray10}>点击注册，代表您已同意</Text></View>
+          <View style={{borderBottomWidth:0.5, borderBottomColor: 'gray'}}>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Agreement')}}>
+              <Text style={globalStyle.gray10}>用户协议</Text>
+            </TouchableOpacity>
+          </View>
+          <View><Text style={globalStyle.gray10}>和</Text></View>
+          <View style={{borderBottomWidth:0.5, borderBottomColor: 'gray'}}>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Privacy')}}>
+              <Text style={globalStyle.gray10}>隐私条款</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
 
     );

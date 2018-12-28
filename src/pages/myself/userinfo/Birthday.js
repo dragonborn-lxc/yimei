@@ -37,6 +37,12 @@ export default class Birthday extends Component {
       birthday: moment(newDate).format('YYYY-MM-DD'),
       chosenDate: newDate,
     });
+    this.props.navigation.setParams({
+      user: {
+        id: this.state.id,
+        birthday: moment(newDate).format('YYYY-MM-DD'),
+      }
+    });
   }
 
 

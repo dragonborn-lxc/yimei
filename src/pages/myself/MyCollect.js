@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import globalStyle from '../../../assets/nativeStyles/global';
+import Goback from '../../common/Goback';
 
 let totalPage=5;//总的页数
 export default class MyCollect extends Component {
@@ -33,15 +34,7 @@ export default class MyCollect extends Component {
     static navigationOptions = ({ navigation }) => ({
       title: '我的收藏',
       headerTitleStyle: globalStyle.black15,
-      headerLeft:(
-           	<View style={{justifyContent:'center', marginLeft: 10,}}>
-              <TouchableOpacity onPress={() => navigation.goBack(null)} >
-                  <View>
-                    <AntDesign name="left" size={16} color='gray' />
-                  </View>
-              </TouchableOpacity>
-           	</View>
-          ),
+      headerLeft: <Goback navigation={navigation}/>,
     });
 
     //网络请求——获取数据

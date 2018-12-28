@@ -12,7 +12,7 @@ export default class Sex extends React.Component {
     super(props);
     this.state = {
       id: this.props.navigation.getParam('id', 'NO-ID'),
-      sex: this.props.navigation.getParam('sex', 'some default value'),
+      sexEnum: this.props.navigation.getParam('sexEnum', 'some default value'),
     }
   }
 
@@ -23,10 +23,17 @@ export default class Sex extends React.Component {
     headerRight: <FinishedBtn navigation={navigation}/> ,
   });
 
-  changeSex=(sex)=>{
+  changeSex=(sexEnum)=>{
     let temp = this.state;
-    temp.sex = sex;
+    temp.sexEnum = sexEnum;
     this.setState(temp);
+
+    this.props.navigation.setParams({
+      user: {
+        id: this.state.id,
+        sexEnum: sexEnum,
+      }
+    });
   }
 
   render() {
@@ -38,7 +45,7 @@ export default class Sex extends React.Component {
           <View style={[styles.eachView]}>
             <View style={[styles.fontView]} ><Text style={[globalStyle.gray15, styles.font2]}>男</Text></View>
             {
-              this.state.sex === 'MALE' ? <View style={[styles.fontView]} ><AntDesign name="check" size={14} /></View> : null
+              this.state.sexEnum === 'MALE' ? <View style={[styles.fontView]} ><AntDesign name="check" size={14} /></View> : null
             }
           </View>
         </TouchableOpacity>
@@ -47,7 +54,7 @@ export default class Sex extends React.Component {
           <View style={[styles.eachView]}>
             <View style={[styles.fontView]} ><Text style={[globalStyle.gray15, styles.font2]}>女</Text></View>
             {
-              this.state.sex === 'FEMALE' ? <View style={[styles.fontView]} ><AntDesign name="check" size={14} /></View> : null
+              this.state.sexEnum === 'FEMALE' ? <View style={[styles.fontView]} ><AntDesign name="check" size={14} /></View> : null
             }
           </View>
         </TouchableOpacity>

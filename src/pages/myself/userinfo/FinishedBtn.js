@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, TouchableOpacity } from 'react-native';
 import globalStyle from '../../../../assets/nativeStyles/global';
+import {getLocalStorage, setLocalStorage, request} from '../../../common/util';
 import styles from './styles';
 
 export default class FinishedBtn extends React.Component {
@@ -8,13 +9,16 @@ export default class FinishedBtn extends React.Component {
     super(props);
   }
 
-  static defaultProps = {
-    save: () => null,
-  };
 
   saveAndGoback = () => {
-    this.props.navigation.goBack(null);
-    this.props.save;
+    request("/app/user/open/merge",
+     (responseData)=>{
+      let user = responseData.result;
+      user.loginStatus = 'LOGGED_IN';
+      setLocalStorage("user", user);
+      this.props.navigation.navigate('UserInfo', {});
+    }, 'POST', {'Content-Type': 'application/json'}, this.props.navigation.getParam("user"));
+
   }
 
   render() {

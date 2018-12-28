@@ -11,8 +11,8 @@ export default class Realname extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.navigation.getParam('id', ''),
-      realname: this.props.navigation.getParam('realname', ''),
+        id: this.props.navigation.getParam('id', ''),
+        realname: this.props.navigation.getParam('realname', ''),
     }
   }
 
@@ -20,7 +20,7 @@ export default class Realname extends React.Component {
     title: '真实姓名',
     headerTitleStyle: globalStyle.black15,
     headerLeft: <Goback navigation={navigation}/> ,
-    headerRight: <FinishedBtn navigation={navigation}/> ,
+    headerRight: <FinishedBtn navigation={navigation} /> ,
   });
 
   render() {
@@ -29,7 +29,15 @@ export default class Realname extends React.Component {
         <View style={[styles.eachInputView]}>
           <View style={styles.inputFontView}>
             <TextInput value={this.state.realname}
-              onChangeText={(realname) => this.setState({realname})}
+              onChangeText={(realname) => {
+                this.setState({realname: realname});
+                this.props.navigation.setParams({
+                    user: {
+                        id: this.state.id,
+                        realname: realname,
+                    }
+                });
+              }}
               blurOnSubmit={true}
               maxLength={50}
               clearButtonMode={'while-editing'}

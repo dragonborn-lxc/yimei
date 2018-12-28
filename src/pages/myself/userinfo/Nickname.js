@@ -5,7 +5,7 @@ import Goback from '../../../common/Goback';
 import styles from './styles'
 import FinishedBtn from './FinishedBtn';
 
-export default class Mobile extends React.Component {
+export default class Nickname extends React.Component {
 
   constructor(props) {
     super(props);
@@ -28,7 +28,15 @@ export default class Mobile extends React.Component {
         <View style={[styles.eachInputView]}>
           <View style={styles.inputFontView}>
             <TextInput value={this.state.mobile}
-              onChangeText={(mobile) => this.setState({mobile})}
+              onChangeText={(mobile) => {
+                this.setState({mobile: mobile});
+                this.props.navigation.setParams({
+                    user: {
+                        id: this.state.id,
+                        mobile: mobile,
+                    }
+                });
+              }}
               blurOnSubmit={true}
               maxLength={50}
               clearButtonMode={'while-editing'}
