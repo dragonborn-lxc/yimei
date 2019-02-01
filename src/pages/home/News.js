@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Text, View, Image, Dimensions, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 
-var Diemnsions = require('Dimensions');
-var w = Diemnsions.get('window').width;
+const Diemnsions = require('Dimensions');
+const w = Diemnsions.get('window').width;
 
 var info = [
   {

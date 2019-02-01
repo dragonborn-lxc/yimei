@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Text, View, Image, ScrollView, Dimensions, TouchableOpacity, FlatList, PixelRatio, StyleSheet} from 'react-native';
 import Swiper from 'react-native-swiper';
 
-var Diemnsions = require('Dimensions');
-var w = Diemnsions.get('window').width;
+const Diemnsions = require('Dimensions');
+const w = Diemnsions.get('window').width;
 
 var info = [
   {
@@ -57,7 +57,29 @@ export default class Recommend extends Component {
       <ScrollView>
         <View style={{flex: 1}}>
           <View style={styles.banner}>
-            <Swiper showButtons={true} loop={true} autoplay={true} autoplayTimeout={3}>
+            <Swiper showButtons={true} loop={true} autoplay={true} autoplayTimeout={3}
+              dot={<View style={{
+                backgroundColor: '#C0C0C0',
+                width: 3,
+                height: 3,
+                borderRadius: 6,
+                marginLeft: 2,
+                marginRight: 2,
+                top: 20
+              }}/>}
+              activeDot={<View style={{
+                backgroundColor: 'white',
+                width: 3,
+                height: 3,
+                borderRadius: 6,
+                marginLeft: 2,
+                marginRight: 2,
+                top: 20
+              }}/>}
+            >
+              <Image style={styles.img} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
+              <Image style={styles.img} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
+              <Image style={styles.img} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
               <Image style={styles.img} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
               <Image style={styles.img} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
               <Image style={styles.img} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
