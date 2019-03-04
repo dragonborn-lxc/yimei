@@ -110,6 +110,8 @@ class Main extends Component {
             data={paint}
             renderItem={({ index, item }) => this.showArtCell(index, item)}
             keyExtractor={(item, index) => (index + '')}
+            numColumns={2}
+            horizontal={false}
           />
           </View>
         </View>
@@ -125,6 +127,8 @@ class Main extends Component {
             data={goods}
             renderItem={({ index, item }) => this.showDerivativeCell(index, item)}
             keyExtractor={(item, index) => (index + '')}
+            numColumns={2}
+            horizontal={false}
           />
           </View>
         </View>
@@ -134,58 +138,40 @@ class Main extends Component {
 
   showArtCell(index, item) {
     return (
-      <View style={styles.row}>
-        <TouchableOpacity style={styles.items} onPress={() => {this.props.navigation.navigate('Detail', {id: item.id})}}>
-          <Image style={styles.img} source={{url: item.url}} />
-          <View style={styles.desc}>
-            <Text style={styles.name}>最后的晚餐</Text>
-            <Text style={styles.price}>99999元</Text>
-            <Text style={styles.author}>{item.author}</Text>
-            <Text style={styles.other}>题材/材质/大小/创作年份</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.items} onPress={() => {this.props.navigation.navigate('Detail', {id: item.id})}}>
-          <Image style={styles.img} source={{url: item.url}} />
-          <View style={styles.desc}>
-            <Text style={styles.name}>最后的晚餐</Text>
-            <Text style={styles.price}>99999元</Text>
-            <Text style={styles.author}>{item.author}</Text>
-            <Text style={styles.other}>题材/材质/大小/创作年份</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.items} onPress={() => {this.props.navigation.navigate('Detail', {id: item.id})}}>
+        <Image style={styles.img} source={{url: item.url}} />
+        <View style={styles.desc}>
+          <Text style={styles.name}>最后的晚餐</Text>
+          <Text style={styles.price}>99999元</Text>
+          <Text style={styles.author}>{item.author}</Text>
+          <Text style={styles.other}>题材/材质/大小/创作年份</Text>
+        </View>
+      </TouchableOpacity>
     )
   }
 
   showDerivativeCell(index, item) {
     return (
-      <View style={styles.row}>
-        <TouchableOpacity style={styles.items} onPress={() => {this.props.navigation.navigate('Detail', {id: item.id})}}>
-          <Image style={styles.img} source={{ url: item.url }} />
-          <View style={styles.desc}>
-            <Text style={styles.name}>中秋节木盒</Text>
-            <Text style={styles.price}>200元</Text>
-            <Text style={styles.brand}>{item.brand}</Text>
-            <Text style={styles.other}>风格/材质/尺寸/创作年份</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.items} onPress={() => {this.props.navigation.navigate('Detail', {id: item.id})}}>
-          <Image style={styles.img} source={{ url: item.url }} />
-          <View style={styles.desc}>
-            <Text style={styles.name}>中秋节木盒</Text>
-            <Text style={styles.price}>200元</Text>
-            <Text style={styles.brand}>{item.brand}</Text>
-            <Text style={styles.other}>风格/材质/尺寸/创作年</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.items} onPress={() => {this.props.navigation.navigate('Detail', {id: item.id})}}>
+        <Image style={styles.img} source={{ url: item.url }} />
+        <View style={styles.desc}>
+          <Text style={styles.name}>中秋节木盒</Text>
+          <Text style={styles.price}>200元</Text>
+          <Text style={styles.brand}>{item.brand}</Text>
+          <Text style={styles.other}>风格/材质/尺寸/创作年份</Text>
+        </View>
+      </TouchableOpacity>
     )
   }
 }
 
 const ClassifyNavigator = createStackNavigator({
-  Main: Main,
-  Detail: Detail
+  Main: {
+    screen: Main
+  },
+  Detail: {
+    screen: Detail
+  }
 });
 
 export default class Classify extends Component {
@@ -220,9 +206,6 @@ const styles = StyleSheet.create({
     width: w,
     marginTop: 8,
     paddingLeft: 26
-  },
-  row: {
-    flexDirection: 'row'
   },
   items: {
     flex: 1,

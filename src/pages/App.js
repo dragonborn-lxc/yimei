@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, AppState} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -7,7 +7,8 @@ import Feather from 'react-native-vector-icons/Feather'
 import SplashScreen from 'react-native-splash-screen';
 import {createBottomTabNavigator, createAppContainer} from 'react-navigation';
 import DropdownAlert from 'react-native-dropdownalert';
-import {DropDownHolder} from '../common/DropDownHolder'
+import {DropDownHolder} from '../common/DropDownHolder';
+import {getLocalStorage, setLocalStorage, request} from '../common/util';
 
 import Home from './home/Home';
 import Subject from './subject/Subject';
@@ -18,11 +19,30 @@ import Myself from './myself/Myself';
 type Props = {};
 
 export default class App extends Component<Props> {
-
-  async componentWillMount() {
-
+  componentWillMount() {
     SplashScreen.hide();
+    AppState.addEventListener('change', this._handleAppStateChange);
   }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+
+  _handleAppStateChange = (appState) => {
+    let currUser = '';
+    getLocalStorage('user', (res)=>{
+      currUser = res;
+    });
+    if (appState === 'active' && currUser) {
+      request("/app/auth/token/refresh?refreshToken=" + currUser.refreshToken,
+      (responseData)=>{
+         currUser.accessToken = responseData.accessToken;
+         currUser.refreshToken = responseData.refreshToken;
+         setLocalStorage("user", currUser);
+      }, 'POST');
+    }
+  }
+
   render() {
     return (
       <>

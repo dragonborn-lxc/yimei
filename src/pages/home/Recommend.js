@@ -130,7 +130,7 @@ export default class Recommend extends Component {
 const styles = StyleSheet.create({
   banner: {
     width: w,
-    height: 188
+    height: 250
   },
   img: {
     flex: 1

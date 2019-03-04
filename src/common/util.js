@@ -107,7 +107,50 @@ export function request(partUrl, success_fn, method, headers, body) {
   })
   .catch((error) => {
     console.log('==> fetch error', error);
-    DropDownHolder.getDropDown().alertWithType('error', 'Error', error);
+    DropDownHolder.getDropDown().alertWithType('error', 'Error', 'error');
   })
   .done();
+}
+
+export function invoke(url, method, headers, body, success_fn) {
+  let _url = constants.BASE_URL + url;
+  let _method = method ? method : 'GET';
+  let _headers = headers ? JSON.stringify(headers) : {};
+  let _body = body ? JSON.stringify(body) : null;
+
+  fetch(url, {
+    method: _method,
+    headers: _headers,
+    body: _body
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw Error(response.statusText);
+  }).then((json) => {
+    if(responseData.error && responseData.error.code) {
+      console.log(json.error.code + ": " + json.error.message);
+    } else {
+      success_fn(responseData);
+    }
+  }).catch((error) => {
+    console.log('==> fetch error', error);
+    DropDownHolder.getDropDown().alertWithType('error', 'Error', '系统出现错误，请稍后再试');
+  }).done();
+}
+
+export function post(url, body, success_fn) {
+  let accessToken = '';
+  getLocalStorage('user', (res)=>{
+    accessToken = res.accessToken;
+  });
+  return invoke(url,
+    'POST',
+    {
+      'Content-Type': 'application/json',
+      'access_token': accessToken
+    },
+    body,
+    success_fn
+  );
 }
