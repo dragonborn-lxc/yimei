@@ -11,66 +11,32 @@ const w = Diemnsions.get('window').width;
 var paint = [
   {
     id: 1,
-    author: '达芬奇',
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg'
-  },
-  {
-    id: 1,
-    author: '达芬奇',
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg'
-  },
-  {
-    id: 1,
-    author: '达芬奇',
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg'
-  },
-  {
-    id: 1,
-    author: '达芬奇',
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg'
-  },
-  {
-    id: 1,
-    author: '达芬奇',
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg'
-  },
-  {
-    id: 1,
-    author: '达芬奇',
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg'
+    type: 1,
+    name: 'Lost in A Circle',
+    price: '6,000',
+    author: 'Baptiste Desjardin',
+    category: '设计艺术',
+    theme: '静物',
+    size: '50 x 50cm',
+    year: '2018',
+    thumbnail: 'https://www.pgtartcentre.com/img/art/1/thumbnail.jpg',
+    cover: 'https://www.pgtartcentre.com/img/art/1/cover.jpg'
   }
 ];
 
 var goods = [
   {
-    id: 2,
-    brand: '自创品牌',
-    url: 'https://img.zcool.cn/community/01c56959cc8b6ba801218e18217f50.jpg@1280w_1l_2o_100sh.jpg'
-  },
-  {
-    id: 2,
-    brand: '自创品牌',
-    url: 'https://img.zcool.cn/community/01c56959cc8b6ba801218e18217f50.jpg@1280w_1l_2o_100sh.jpg'
-  },
-  {
-    id: 2,
-    brand: '自创品牌',
-    url: 'https://img.zcool.cn/community/01c56959cc8b6ba801218e18217f50.jpg@1280w_1l_2o_100sh.jpg'
-  },
-  {
-    id: 2,
-    brand: '自创品牌',
-    url: 'https://img.zcool.cn/community/01c56959cc8b6ba801218e18217f50.jpg@1280w_1l_2o_100sh.jpg'
-  },
-  {
-    id: 2,
-    brand: '自创品牌',
-    url: 'https://img.zcool.cn/community/01c56959cc8b6ba801218e18217f50.jpg@1280w_1l_2o_100sh.jpg'
-  },
-  {
-    id: 2,
-    brand: '自创品牌',
-    url: 'https://img.zcool.cn/community/01c56959cc8b6ba801218e18217f50.jpg@1280w_1l_2o_100sh.jpg'
+    id: 1,
+    type: 2,
+    name: '蓝泡泡',
+    price: '23,868',
+    brand: 'MEW Rug',
+    category: '家居家饰',
+    style: '欧式',
+    size: '206 x 303cm',
+    year: '2018',
+    thumbnail: 'https://www.pgtartcentre.com/img/derivative/1/thumbnail.jpg',
+    cover: 'https://www.pgtartcentre.com/img/derivative/1/cover.jpg'
   }
 ];
 
@@ -95,20 +61,29 @@ class Main extends Component {
     super(props);
   }
 
+  componentWillMount() {
+    var artItems = [];
+    var derivativeItems = [];
+  }
+
   render() {
     return (
       <ScrollableTabView style={styles.navbar} tabBarActiveTextColor='#000000' tabBarInactiveTextColor='#8D8D8D' tabBarTextStyle={styles.label} tabBarUnderlineStyle={styles.underline}>
         <View tabLabel='艺术品'>
           <View style={styles.selections}>
-            <Dropdown data={drop1}/>
-            <Dropdown data={drop2}/>
-            <Dropdown data={drop3}/>
-            <Dropdown data={drop4} icon="filter"/>
+            <Dropdown data={drop1} onSelect={(idx, value) => {
+            }}/>
+            <Dropdown data={drop2} onSelect={(idx, value) => {
+            }}/>
+            <Dropdown data={drop3} onSelect={(idx, value) => {
+            }}/>
+            <Dropdown data={drop4} icon="filter" onSelect={(idx, value) => {
+            }}/>
           </View>
           <View style={{height: 514}}>
           <FlatList
             data={paint}
-            renderItem={({ index, item }) => this.showArtCell(index, item)}
+            renderItem={({index, item}) => this.showArtCell(index, item)}
             keyExtractor={(item, index) => (index + '')}
             numColumns={2}
             horizontal={false}
@@ -117,15 +92,19 @@ class Main extends Component {
         </View>
         <View tabLabel='衍生品'>
           <View style={styles.selections}>
-            <Dropdown data={drop11}/>
-            <Dropdown data={drop12}/>
-            <Dropdown data={drop13}/>
-            <Dropdown data={drop14} icon="filter"/>
+            <Dropdown data={drop11} onSelect={(idx, value) => {
+            }}/>
+            <Dropdown data={drop12} onSelect={(idx, value) => {
+            }}/>
+            <Dropdown data={drop13} onSelect={(idx, value) => {
+            }}/>
+            <Dropdown data={drop14} icon="filter" onSelect={(idx, value) => {
+            }}/>
           </View>
           <View style={{height: 514}}>
           <FlatList
             data={goods}
-            renderItem={({ index, item }) => this.showDerivativeCell(index, item)}
+            renderItem={({index, item}) => this.showDerivativeCell(index, item)}
             keyExtractor={(item, index) => (index + '')}
             numColumns={2}
             horizontal={false}
@@ -138,13 +117,13 @@ class Main extends Component {
 
   showArtCell(index, item) {
     return (
-      <TouchableOpacity style={styles.items} onPress={() => {this.props.navigation.navigate('Detail', {id: item.id})}}>
-        <Image style={styles.img} source={{url: item.url}} />
+      <TouchableOpacity style={styles.items} onPress={() => {this.props.navigation.navigate('Detail', {item: item})}}>
+        <Image style={styles.img} source={{url: item.thumbnail}} />
         <View style={styles.desc}>
-          <Text style={styles.name}>最后的晚餐</Text>
-          <Text style={styles.price}>99999元</Text>
+          <Text style={styles.name}>{item.name}</Text>
+          <Text style={styles.price}>{item.price}元</Text>
           <Text style={styles.author}>{item.author}</Text>
-          <Text style={styles.other}>题材/材质/大小/创作年份</Text>
+          <Text style={styles.other}>{item.category}/{item.theme}/{item.size}/{item.year}</Text>
         </View>
       </TouchableOpacity>
     )
@@ -152,13 +131,13 @@ class Main extends Component {
 
   showDerivativeCell(index, item) {
     return (
-      <TouchableOpacity style={styles.items} onPress={() => {this.props.navigation.navigate('Detail', {id: item.id})}}>
-        <Image style={styles.img} source={{ url: item.url }} />
+      <TouchableOpacity style={styles.items} onPress={() => {this.props.navigation.navigate('Detail', {item: item})}}>
+        <Image style={styles.img} source={{ url: item.thumbnail }} />
         <View style={styles.desc}>
-          <Text style={styles.name}>中秋节木盒</Text>
-          <Text style={styles.price}>200元</Text>
+          <Text style={styles.name}>{item.name}</Text>
+          <Text style={styles.price}>{item.price}元</Text>
           <Text style={styles.brand}>{item.brand}</Text>
-          <Text style={styles.other}>风格/材质/尺寸/创作年份</Text>
+          <Text style={styles.other}>{item.category}/{item.style}/{item.size}/{item.year}</Text>
         </View>
       </TouchableOpacity>
     )

@@ -11,30 +11,25 @@ export default class Detail extends Component {
     headerLeft: <Goback navigation={navigation}/>
   });
 
+  componentWillMount() {
+    var artItems = [];
+    var derivativeItems = [];
+  }
+
   render() {
     const {params} = this.props.navigation.state;
     return (
       <ScrollView>
-        {params.id == "1" ? <Image style={styles.logoImg} source={{url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg'}} />:<Image style={styles.logoImg} source={{url: 'https://img.zcool.cn/community/01c56959cc8b6ba801218e18217f50.jpg@1280w_1l_2o_100sh.jpg'}} />}
+        <Image style={styles.cover} source={{url: params.item.cover}} />
         <View style={styles.desc}>
-          {params.id == "1" ? <Text style={styles.title}>最后的晚餐</Text>: <Text style={styles.title}>中秋节木盒</Text>}
-          {params.id == "1" ? <Text style={styles.parm}>题材/材质/大小/创作年份</Text>: <Text style={styles.parm}>题材/材质/大小/创作年份</Text>}
-          {params.id == "1" ?
-            <View style={styles.row}>
-              <Text style={styles.price}>99999元</Text>
-              <Text style={styles.freight}>运费： ￥100</Text>
-            </View>
-            :
-            <View style={styles.row}>
-              <Text style={styles.price}>200元</Text>
-              <Text style={styles.freight}>运费： ￥100</Text>
-            </View>
-          }
-          {params.id == "1" ?
-            <Text style={styles.introduce}>作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍作品介绍</Text>
-            :
-            <Text style={styles.introduce}>衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍衍生品介绍</Text>
-          }
+          <Text style={styles.title}>{params.item.name}</Text>
+          {params.item.type == "1" ? <Text style={styles.parm}>{params.item.category}/{params.item.theme}/{params.item.size}/{params.item.year}</Text>: <Text style={styles.parm}>{params.item.category}/{params.item.style}/{params.item.size}/{params.item.year}</Text>}
+          <View style={styles.row}>
+            <Text style={styles.price}>{params.item.price}元</Text>
+            <Text style={styles.freight}>运费： ￥50</Text>
+          </View>
+          
+          <Text style={styles.introduce}>{params.item.description}</Text>
         </View>
       </ScrollView>
     );
@@ -42,7 +37,7 @@ export default class Detail extends Component {
 }
 
 const styles = StyleSheet.create({
-  logoImg: {
+  cover: {
     width: w,
     height: w,
     marginBottom: 14

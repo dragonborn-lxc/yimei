@@ -10,23 +10,24 @@ const w = Diemnsions.get('window').width;
 
 export default class Dropdown extends Component {
   static defaultProps = {
-    defaultIndex : 0,
-    defaultStyleFlex : 2,
-    defaultTextSize : 13,
-    defaultTextWeight : '200',
-    defaultSeparatorHeight : 0,
-    defaultSeparatorColor : 'black',
-    defaultColor : 'black'
+    defaultIndex: 0,
+    defaultStyleFlex: 2,
+    defaultTextSize: 13,
+    defaultTextWeight: '200',
+    defaultSeparatorHeight: 0,
+    defaultSeparatorColor: 'black',
+    defaultColor: 'black'
   };
 
   static propTypes = {
-    data : PropTypes.array.isRequired,
+    data: PropTypes.array.isRequired,
+    onSelect: PropTypes.func,
     icon: PropTypes.string,
-    styleFlex : PropTypes.number,
-    textSize : PropTypes.number,
-    textWeight : PropTypes.string,
-    separatorHeight : PropTypes.number,
-    separatorColor : PropTypes.string
+    styleFlex: PropTypes.number,
+    textSize: PropTypes.number,
+    textWeight: PropTypes.string,
+    separatorHeight: PropTypes.number,
+    separatorColor: PropTypes.string
   };
 
   constructor(props) {
@@ -73,6 +74,7 @@ export default class Dropdown extends Component {
 
   _dropdown_onSelect(idx, value) {
     this.setState({defaultValue: value});
+    this.props.onSelect(idx, value);
   }
 }
 
