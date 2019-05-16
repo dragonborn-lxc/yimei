@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Text, View, Image, ScrollView, Dimensions, TouchableOpacity, FlatList, PixelRatio, StyleSheet, RefreshControl, ActivityIndicator} from 'react-native';
+import {Text, View, Image, ScrollView, Dimensions, TouchableOpacity, FlatList, PixelRatio, StyleSheet, RefreshControl} from 'react-native';
 import Swiper from 'react-native-swiper';
+import {CachedImage, ImageCacheProvider} from 'react-native-cached-image';
 import {request} from '../../common/util';
 
 const Diemnsions = require('Dimensions');
@@ -84,8 +85,7 @@ export default class Recommend extends Component {
           onRefresh={this._onRefresh.bind(this)}
           title="数据加载中"
           titleColor="#696969"
-          colors={['#ff0000', '#00ff00', '#0000ff']}
-          progressBackgroundColor="#ffffff"/>
+          colors={['#ff0000', '#00ff00', '#0000ff']}/>
       }>
         <View style={{flex: 1}}>
           <View style={styles.banner}>
@@ -109,9 +109,9 @@ export default class Recommend extends Component {
                 top: 20
               }}/>}
             >
-              <Image style={styles.img} source={{uri: 'https://www.pgtartcentre.com/img/banner/banner-1.jpg?v=' + Math.random()}} />
-              <Image style={styles.img} source={{uri: 'https://www.pgtartcentre.com/img/banner/banner-2.jpg?v=' + Math.random()}} />
-              <Image style={styles.img} source={{uri: 'https://www.pgtartcentre.com/img/banner/banner-3.jpg?v=' + Math.random()}} />
+              <CachedImage style={styles.img} source={{uri: 'https://www.pgtartcentre.com/img/banner/banner-1.jpg'}} />
+              <CachedImage style={styles.img} source={{uri: 'https://www.pgtartcentre.com/img/banner/banner-2.jpg'}} />
+              <CachedImage style={styles.img} source={{uri: 'https://www.pgtartcentre.com/img/banner/banner-3.jpg'}} />
             </Swiper>
           </View>
           <FlatList

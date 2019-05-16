@@ -1,54 +1,78 @@
 import React, {Component} from 'react';
-import {Text, View, Image, Dimensions, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
+import {Text, View, Image, ScrollView, Dimensions, TouchableOpacity, FlatList, StyleSheet, RefreshControl, Linking} from 'react-native';
+import {request} from '../../common/util';
 
 const Diemnsions = require('Dimensions');
 const w = Diemnsions.get('window').width;
 
-var info = [
-  {
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549019262775&di=39f8a1535fbd0790bc2ed53a838677bf&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fe2b6bc362580149464a16ca78c3f52f692c4b02c302f-ZCO77F_fw658'
-  },
-  {
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549019262775&di=39f8a1535fbd0790bc2ed53a838677bf&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fe2b6bc362580149464a16ca78c3f52f692c4b02c302f-ZCO77F_fw658'
-  },
-  {
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549019262775&di=39f8a1535fbd0790bc2ed53a838677bf&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fe2b6bc362580149464a16ca78c3f52f692c4b02c302f-ZCO77F_fw658'
-  },
-  {
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549019262775&di=39f8a1535fbd0790bc2ed53a838677bf&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fe2b6bc362580149464a16ca78c3f52f692c4b02c302f-ZCO77F_fw658'
-  },
-  {
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549019262775&di=39f8a1535fbd0790bc2ed53a838677bf&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fe2b6bc362580149464a16ca78c3f52f692c4b02c302f-ZCO77F_fw658'
-  },
-  {
-    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549019262775&di=39f8a1535fbd0790bc2ed53a838677bf&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fe2b6bc362580149464a16ca78c3f52f692c4b02c302f-ZCO77F_fw658'
-  }
-]
-
 export default class Subject extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      subjectList: [],
+      isRefreshing: false
+    };
+  }
+
+  componentWillMount() {
+    this._loadData();
+  }
+
+  _loadData() {
+    request("/app/subject/index",
+      (responseData)=>{
+        this.setState({
+          subjectList: responseData.result
+        });
+      },
+      'POST'
+    );
+  }
+
+  _onRefresh() {
+    this.setState({
+      isRefreshing: true,
+      subjectList: []
+    });
+    setTimeout(() => {
+      this._loadData();
+      this.setState({isRefreshing: false});
+    }, 3000)
+  }
+
+  _open(url) {
+		Linking.openURL(url)
+	}
+
+  _showCell(index, item) {
+    return (
+      <TouchableOpacity style={styles.items} onPress={() => this._open(item.url)}>
+        <Image style={styles.img} source={{uri: item.imgUrl}} />
+      </TouchableOpacity>
+    )
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.topic}>专题</Text>
-        <FlatList
-          data={info}
-          renderItem={({ index, item }) => this.showCell(index, item)}
-          keyExtractor={(item, index) => (index + '')}
-        />
+        <ScrollView refreshControl={
+          <RefreshControl
+            refreshing={this.state.isRefreshing}
+            onRefresh={this._onRefresh.bind(this)}
+            title="数据加载中"
+            titleColor="#696969"
+            colors={['#ff0000', '#00ff00', '#0000ff']}
+            progressBackgroundColor="#ffffff"/>
+        }>
+          <FlatList
+            data={this.state.subjectList}
+            renderItem={({ index, item }) => this._showCell(index, item)}
+            keyExtractor={(item, index) => (index + '')}
+          />
+        </ScrollView>
       </View>
     );
-  }
-
-  showCell(index, item) {
-    return (
-      <View style={styles.items}>
-        <Image style={styles.img} source={{ uri: item.url }} />
-      </View>
-    )
   }
 }
 

@@ -14,7 +14,7 @@ export default class Dropdown extends Component {
     defaultStyleFlex: 2,
     defaultTextSize: 13,
     defaultTextWeight: '200',
-    defaultSeparatorHeight: 0,
+    defaultSeparatorHeight: 1,
     defaultSeparatorColor: 'black',
     defaultColor: 'black'
   };
