@@ -21,7 +21,7 @@ var drop12 = ['全部', '现代简约', '美式乡村', '复古怀旧', '现代�
 var drop13 = ['智能排序','价格升序', '价格降序', '年代升序', '年代降序'];
 var drop14 = ['全部', '1～500', '500～2000', '2000以上', '大尺寸', '中尺寸', '小尺寸'];
 
-class Main extends Component {
+class ClassifyMain extends Component {
   static navigationOptions = {
     header: null,
     headerBackTitle: null,
@@ -293,7 +293,7 @@ class Main extends Component {
 
 const ClassifyNavigator = createStackNavigator({
   Main: {
-    screen: Main
+    screen: ClassifyMain
   },
   Detail: {
     screen: Detail

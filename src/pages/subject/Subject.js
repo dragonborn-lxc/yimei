@@ -1,11 +1,20 @@
 import React, {Component} from 'react';
-import {Text, View, Image, ScrollView, Dimensions, TouchableOpacity, FlatList, StyleSheet, RefreshControl, Linking} from 'react-native';
+import {Text, View, Image, ScrollView, Dimensions, TouchableOpacity, FlatList, StyleSheet, RefreshControl} from 'react-native';
+import {createStackNavigator, NavigationActions} from 'react-navigation';
 import {request} from '../../common/util';
+import UrlView from '../../components/UrlView';
 
 const Diemnsions = require('Dimensions');
 const w = Diemnsions.get('window').width;
+const h = Diemnsions.get('window').height;
 
-export default class Subject extends Component {
+class SubjectMain extends Component {
+  static navigationOptions = {
+    header: null,
+    headerBackTitle: null,
+    gesturesEnabled: false,
+  };
+
   constructor(props){
     super(props);
     this.state = {
@@ -40,13 +49,9 @@ export default class Subject extends Component {
     }, 3000)
   }
 
-  _open(url) {
-		Linking.openURL(url)
-	}
-
   _showCell(index, item) {
     return (
-      <TouchableOpacity style={styles.items} onPress={() => this._open(item.url)}>
+      <TouchableOpacity style={styles.items} onPress={() => {this.props.navigation.navigate('Detail', {url: item.url})}}>
         <Image style={styles.img} source={{uri: item.imgUrl}} />
       </TouchableOpacity>
     )
@@ -72,6 +77,25 @@ export default class Subject extends Component {
           />
         </ScrollView>
       </View>
+    );
+  }
+}
+
+const SubjectNavigator = createStackNavigator({
+  Home: {
+    screen: SubjectMain
+  },
+  Detail: {
+    screen: UrlView
+  }
+});
+
+export default class Subject extends Component {
+  static router = SubjectNavigator.router;
+
+  render() {
+    return (
+      <SubjectNavigator navigation={this.props.navigation}/>
     );
   }
 }
