@@ -5,7 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Feather from 'react-native-vector-icons/Feather'
 import SplashScreen from 'react-native-splash-screen';
-import {createBottomTabNavigator, createAppContainer} from 'react-navigation';
+import {createStackNavigator, createBottomTabNavigator, createAppContainer} from 'react-navigation';
 import DropdownAlert from 'react-native-dropdownalert';
 import {DropDownHolder} from '../common/DropDownHolder';
 import {getLocalStorage, setLocalStorage, request} from '../common/util';
@@ -14,6 +14,7 @@ import Home from './home/Home';
 import Subject from './subject/Subject';
 import Classify from './classify/Classify';
 import Myself from './myself/Myself';
+import Detail from './classify/Detail';
 
 
 type Props = {};
@@ -54,6 +55,25 @@ export default class App extends Component<Props> {
   }
 }
 
+const ClassifyNavigator = createStackNavigator({
+  Main: {
+    screen: Classify
+  },
+  Detail: {
+    screen: Detail
+  }
+});
+
+ClassifyNavigator.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarVisible
+  };
+};
+
 const AppNavigator = createBottomTabNavigator({
   home: {
     screen: Home,
@@ -63,7 +83,7 @@ const AppNavigator = createBottomTabNavigator({
     })
   },
   classify: {
-    screen: Classify,
+    screen: ClassifyNavigator,
     navigationOptions: ({navigation}) => ({
       tabBarLabel: '分类',
       tabBarIcon: ({focused, tintColor}) => (focused ? <FontAwesome5 name="list-ul" size={23} color={tintColor} style={{marginTop:6}}/>: <FontAwesome5 name="list-ul" size={23} color={tintColor} style={{marginTop:6}}/>)

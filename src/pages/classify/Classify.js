@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {Text, View, Image, Dimensions, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
-import {createStackNavigator, NavigationActions} from 'react-navigation';
 import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
 import Dropdown from '../../components/Dropdown';
 import RefreshFlatList from '../../components/RefreshFlatList';
 import {request} from '../../common/util';
-import Detail from './Detail';
 
 const Diemnsions = require('Dimensions');
 const w = Diemnsions.get('window').width;
@@ -21,7 +19,7 @@ var drop12 = ['全部', '现代简约', '美式乡村', '复古怀旧', '现代�
 var drop13 = ['智能排序','价格升序', '价格降序', '年代升序', '年代降序'];
 var drop14 = ['全部', '1～500', '500～2000', '2000以上', '大尺寸', '中尺寸', '小尺寸'];
 
-class ClassifyMain extends Component {
+export default class Classify extends Component {
   static navigationOptions = {
     header: null,
     headerBackTitle: null,
@@ -288,25 +286,6 @@ class ClassifyMain extends Component {
         </View>
       </TouchableOpacity>
     )
-  }
-}
-
-const ClassifyNavigator = createStackNavigator({
-  Main: {
-    screen: ClassifyMain
-  },
-  Detail: {
-    screen: Detail
-  }
-});
-
-export default class Classify extends Component {
-  static router = ClassifyNavigator.router;
-
-  render() {
-    return (
-      <ClassifyNavigator navigation={this.props.navigation}/>
-    );
   }
 }
 
