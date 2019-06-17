@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Text, View, Image, ScrollView, Dimensions, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
+import {Text, View, Image, ScrollView, Dimensions, TouchableOpacity, FlatList, StyleSheet, Alert} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Goback from '../../common/Goback';
-import {request} from '../../common/util';
+import {getLocalStorage, request, post} from '../../common/util';
 
 const Diemnsions = require('Dimensions');
 const w = Diemnsions.get('window').width;
@@ -20,6 +20,11 @@ export default class Detail extends Component {
       cover: '',
       diagram: [],
       product: '',
+      isCollected: false,
+      collectColor: '#505050',
+      collectText: '收藏',
+      user: null,
+      isLogin: false
     }
   }
 
@@ -34,12 +39,63 @@ export default class Detail extends Component {
       },
       'POST'
     );
+    getLocalStorage("user", (res)=>{
+      if (res != null) {
+        post("/app/operate/exist",
+          {"userId": res.id, "prodId": this.props.navigation.state.params.item.id},
+          (responseData)=>{
+            if (responseData.result == true) {
+              this.setState({
+                isCollected: true
+              });
+            } else {
+              this.setState({
+                isCollected: false
+              });
+            }
+            this.setState({
+              user: res,
+              isLogin: true
+            })
+          },
+          'POST'
+        );
+      } else {
+        this.setState({
+          isCollected: false
+        })
+      }
+    });
   }
 
   _showCell(index, item) {
     return (
       <Image style={styles.diagram} source={{uri: item}}/>
     )
+  }
+
+  _addCollect = () => {
+    if (this.state.isCollected) {
+      post("/app/operate/uncollect",
+        {"userId": this.state.user.id, "prodId": this.props.navigation.state.params.item.id},
+        (responseData)=>{
+          this.setState({
+            isCollected: false
+          })
+        },
+        'POST'
+      );
+    } else {
+      post("/app/operate/collect",
+        {"userId": this.state.user.id, "prodId": this.props.navigation.state.params.item.id},
+        (responseData)=>{
+          this.setState({
+            isCollected: true
+          })
+        },
+        'POST'
+      );
+    }
   }
 
   render() {
@@ -76,13 +132,30 @@ export default class Detail extends Component {
         </ScrollView>
         <View style={styles.footer}>
           <View style={styles.actions}>
-            <TouchableOpacity style={styles.collect}>
-              <FontAwesome name="star-o" size={25} color="#505050" style={{marginTop:6}}/>
-              <Text style={styles.collecttext}>收藏</Text>
+            <TouchableOpacity style={styles.collect} onPress={() => {
+              if (!this.state.isLogin) {
+                Alert.alert("请登录")
+              } else {
+                this._addCollect()
+              }
+            }}>
+              {this.state.isCollected
+                ?
+                <FontAwesome name="star" size={25} color='red' style={{marginTop:6}}/>
+                :
+                <FontAwesome name="star-o" size={25} color='#505050' style={{marginTop:6}}/>
+              }
+              <Text style={styles.collecttext}>{this.state.isCollected? '已收藏': '收藏'}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.buttons}>
-            <TouchableOpacity style={styles.buy}>
+            <TouchableOpacity style={styles.buy} onPress={() => {
+              if (!this.state.isLogin) {
+                Alert.alert("请登录")
+              } else {
+
+              }
+            }}>
               <Text style={styles.buytext}>立即购买</Text>
             </TouchableOpacity>
           </View>

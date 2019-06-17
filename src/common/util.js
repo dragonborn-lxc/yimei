@@ -97,28 +97,26 @@ export function request(partUrl, success_fn, method, headers, body) {
     body: _body
   })
   .then((response) => response.json())
-  .then((responseData) => {   // 获取到的数据处理
-    console.info('result', responseData)
+  .then((responseData) => {
     if(responseData.error && responseData.error.code) {
-      DropDownHolder.getDropDown().alertWithType('error', 'Error', responseData.error.code + ": " + responseData.error.message);
+      DropDownHolder.getDropDown().alertWithType('info', '提示：', responseData.error.code + ": " + responseData.error.message);
     }else {
       success_fn(responseData);
     }
   })
   .catch((error) => {
-    console.log('==> fetch error', error);
-    DropDownHolder.getDropDown().alertWithType('error', 'Error', 'error');
+    DropDownHolder.getDropDown().alertWithType('info', '提示：', 'error');
   })
   .done();
 }
 
-export function invoke(url, method, headers, body, success_fn) {
+export function invoke(url, method, headers, body, success_fn, error_fn) {
   let _url = constants.BASE_URL + url;
   let _method = method ? method : 'GET';
-  let _headers = headers ? JSON.stringify(headers) : {};
+  let _headers = headers ? headers : {};
   let _body = body ? JSON.stringify(body) : null;
 
-  fetch(url, {
+  fetch(_url, {
     method: _method,
     headers: _headers,
     body: _body
@@ -128,29 +126,53 @@ export function invoke(url, method, headers, body, success_fn) {
     }
     throw Error(response.statusText);
   }).then((json) => {
-    if(responseData.error && responseData.error.code) {
-      console.log(json.error.code + ": " + json.error.message);
+    if(json.error && json.error.code) {
     } else {
-      success_fn(responseData);
+      success_fn(json);
     }
   }).catch((error) => {
-    console.log('==> fetch error', error);
-    DropDownHolder.getDropDown().alertWithType('error', 'Error', '系统出现错误，请稍后再试');
+    error_fn(error);
   }).done();
 }
 
 export function post(url, body, success_fn) {
-  let accessToken = '';
-  getLocalStorage('user', (res)=>{
-    accessToken = res.accessToken;
+  let currUser = getLocalStorage('user', (res) => {
+    return invoke(url,
+      'POST',
+      {
+        'Content-Type': 'application/json',
+        'access_token': res.accessToken
+      },
+      body,
+      success_fn,
+      (error) => {
+        invoke("/app/auth/token/refresh?refresh_token=" + res.refreshToken,
+          "POST",
+          null,
+          null,
+          (responseData)=>{
+            currUser.accessToken = responseData.accessToken;
+            currUser.refreshToken = responseData.refreshToken;
+            setLocalStorage("user", res);
+            return invoke(url,
+              'POST',
+              {
+                'Content-Type': 'application/json',
+                'access_token': res.accessToken
+              },
+              body,
+              success_fn,
+              (error) => {
+                DropDownHolder.getDropDown().alertWithType('info', '提示：', '系统出现错误，请稍后再试');
+              }
+            );
+          },
+          (error) => {
+            AsyncStorage.removeItem("user");
+            DropDownHolder.getDropDown().alertWithType('info', '提示：', '请重新登录');
+          }
+        );
+      }
+    );
   });
-  return invoke(url,
-    'POST',
-    {
-      'Content-Type': 'application/json',
-      'access_token': accessToken
-    },
-    body,
-    success_fn
-  );
 }
