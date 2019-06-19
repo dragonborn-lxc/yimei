@@ -105,7 +105,7 @@ export function request(partUrl, success_fn, method, headers, body) {
     }
   })
   .catch((error) => {
-    DropDownHolder.getDropDown().alertWithType('info', '提示：', 'error');
+    DropDownHolder.getDropDown().alertWithType('info', '提示：', '系统出现错误，请稍后再试');
   })
   .done();
 }

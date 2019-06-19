@@ -8,18 +8,20 @@ import {
     View,
     SwipeableFlatList,
     TouchableHighlight,
-    Image
+    Image,
+    DeviceEventEmitter
 } from "react-native";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import globalStyle from '../../../assets/nativeStyles/global';
 import Goback from '../../common/Goback';
+import {getLocalStorage, request, post} from '../../common/util';
 
 let totalPage=5;//总的页数
 export default class MyCollect extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          id: this.props.navigation.getParam('id', 'NO-ID'),
+          userId: this.props.navigation.getParam('userId'),
           tab: 'ask',
           data: [],
           page: 1,
@@ -34,38 +36,41 @@ export default class MyCollect extends Component {
     static navigationOptions = ({ navigation }) => ({
       title: '我的收藏',
       headerTitleStyle: globalStyle.black15,
-      headerLeft: <Goback navigation={navigation}/>,
+      headerLeft: <Goback navigation={navigation} additionalFun={() => {
+        DeviceEventEmitter.emit('refresh',{})
+      }}/>,
     });
 
-    //网络请求——获取数据
     fetchData() {
-      //这个是js的访问网络的方法
-      fetch("https://cnodejs.org/api/v1/topics?tab=" + this.state.tab + "&page=" +this.state.page + "&limit=" + this.state.limit)
-        .then((response) => response.json())        // json方式解析，如果是text就是 response.text()
-        .then((responseData) => {   // 获取到的数据处理
-          let foot = 0;
-          if(this.state.page>=totalPage){
-              foot = 1;//listView底部显示没有更多数据了
-          }
-          this.setState({
-            // data:this.state.data.concat( tempArray),
-            data: [...this.state.data, ...responseData.data],
-            error: responseData.error || null,
-            loading: false,
-            refreshing: false,
-            showFoot:foot,
-          })
-        })
-        .catch((error) => {
-          console.log('==> fetch error', error);
-          this.setState({ error: error, loading: false, refreshing: false});
-        })
-        .done();
+      post("/app/operate/collect/all",
+        {
+          "pageNumber": this.state.page,
+          "pageSize": totalPage,
+          "userId": this.state.userId
+        },
+        (responseData)=>{
+          if (responseData.result  &&  responseData.result.length > 0) {
+            this.setState({
+              data: [...this.state.data, ...responseData.result],
+              error: responseData.error || null,
+              loading: false,
+              refreshing: false,
+              showFoot: 0
+            })
+     		 	} else {
+     		 		this.setState({
+  						showFoot: 1
+  					});
+     		 	}
+        },
+        'POST'
+      );
     }
 
     componentDidMount() {
         this.fetchData();
     }
+
     shouldComponentUpdate() {
         return true
     }
@@ -108,24 +113,17 @@ export default class MyCollect extends Component {
         return (
           <View style={styles.row}>
             <View >
-              <Image style={styles.image} source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543510657993&di=cf476dc889bc6051174643644a996d6b&imgtype=0&src=http%3A%2F%2Fupload.art.ifeng.com%2F2015%2F0817%2Fthumb_1076_500_1439772675975.jpg' }} />
+              {item.thumbnailImgUrl == null || item.thumbnailImgUrl == ""? <Image style={styles.image}/>: <Image style={styles.image} source={{ uri: item.thumbnailImgUrl }} />}
             </View>
             <View style={styles.rowContentData}>
               <View style={styles.rowContentTitle}>
-                <Text style={globalStyle.black15}>{item.id}</Text>
+                <Text style={globalStyle.black15}>{item.name}</Text>
               </View>
               <View style={styles.rowContentAuther}>
-                <Text style={globalStyle.black12}>作者名字</Text>
-              </View>
-
-              <View style={styles.rowContentDesc}>
-                <Text style={globalStyle.gray11}>题材/</Text>
-                <Text style={globalStyle.gray11}>材质/</Text>
-                <Text style={globalStyle.gray11}>大小/</Text>
-                <Text style={globalStyle.gray11}>创作年份</Text>
+                <Text style={globalStyle.black12}>{item.brand}{item.artist? "/":""}{item.artist}</Text>
               </View>
               <View style={styles.rowContentPrice}>
-                <Text style={globalStyle.red14}>999999.99元</Text>
+                <Text style={globalStyle.red14}>{item.price}元</Text>
               </View>
             </View>
           </View>
@@ -144,14 +142,18 @@ export default class MyCollect extends Component {
       );
     }
 
-    deleteRow =(deleteItem)=> {
-      // todo 删除数据
-      const newData = [...this.state.data];
-
-      const prevIndex = this.state.data.findIndex(item => item === deleteItem);
-      newData.splice(prevIndex, 1);
-      this.setState({data: newData});
-      this._flatListRef._onClose();
+    deleteRow = (deleteItem)=> {
+      post("/app/operate/collect/uncollect",
+        {"userId": this.state.userId, "prodId": deleteItem.id},
+        (responseData)=>{
+          const newData = [...this.state.data];
+          const prevIndex = this.state.data.findIndex(item => item === deleteItem);
+          newData.splice(prevIndex, 1);
+          this.setState({data: newData});
+          this._flatListRef._onClose();
+        },
+        'POST'
+      );
     }
 
     renderData() {

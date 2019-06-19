@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image, ScrollView, Dimensions, TouchableOpacity, FlatList, StyleSheet, Alert} from 'react-native';
+import {Text, View, Image, ScrollView, Dimensions, TouchableOpacity, FlatList, StyleSheet, Alert, DeviceEventEmitter} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Goback from '../../common/Goback';
 import {getLocalStorage, request, post} from '../../common/util';
@@ -41,7 +41,7 @@ export default class Detail extends Component {
     );
     getLocalStorage("user", (res)=>{
       if (res != null) {
-        post("/app/operate/exist",
+        post("/app/operate/collect/exist",
           {"userId": res.id, "prodId": this.props.navigation.state.params.item.id},
           (responseData)=>{
             if (responseData.result == true) {
@@ -76,26 +76,31 @@ export default class Detail extends Component {
 
   _addCollect = () => {
     if (this.state.isCollected) {
-      post("/app/operate/uncollect",
+      post("/app/operate/collect/uncollect",
         {"userId": this.state.user.id, "prodId": this.props.navigation.state.params.item.id},
         (responseData)=>{
           this.setState({
             isCollected: false
+          }, () => {
+            Alert.alert('已取消收藏')
           })
         },
         'POST'
       );
     } else {
-      post("/app/operate/collect",
+      post("/app/operate/collect/collect",
         {"userId": this.state.user.id, "prodId": this.props.navigation.state.params.item.id},
         (responseData)=>{
           this.setState({
             isCollected: true
+          }, () => {
+            Alert.alert('已收藏')
           })
         },
         'POST'
       );
     }
+    DeviceEventEmitter.emit('refresh',{});
   }
 
   render() {
@@ -153,7 +158,7 @@ export default class Detail extends Component {
               if (!this.state.isLogin) {
                 Alert.alert("请登录")
               } else {
-
+                Alert.alert("该功能暂不支持，谢谢")
               }
             }}>
               <Text style={styles.buytext}>立即购买</Text>

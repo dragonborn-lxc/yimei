@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { Text, View, Image, Button, StyleSheet, Alert, TouchableOpacity, DeviceEventEmitter } from 'react-native';
 import { Card } from 'react-native-elements';
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
-import {getLocalStorage, setLocalStorage, request} from '../../common/util';
+import {getLocalStorage, setLocalStorage, request, post} from '../../common/util';
 import globalStyle from '../../../assets/nativeStyles/global';
 import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
@@ -86,19 +86,36 @@ class MySelfHome extends React.Component {
     this.state = {
       user: null,
       loginType: LOGGED_OUT,
+      collectSum: 0
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return true;
   }
+
+  componentWillMount() {
+    this._refreshData();
+    this.subscription = DeviceEventEmitter.addListener('refresh', this._refreshData)
+  }
+
+  componentWillUnmount() {
+    this.subscription.remove();
+  }
+
   componentDidUpdate() {
     this.onLogin();
   }
 
   onLogin=()=> {
     if ( !this.state.user) {
-      getLocalStorage("user", (res)=>{
+      this._refreshData();
+    }
+  }
+
+  _refreshData = () => {
+    getLocalStorage("user", (res)=>{
+      if (res) {
         let loginUser = res;
         let loginStatus = loginUser && loginUser.loginStatus === LOGGED_IN ? LOGGED_IN : LOGGED_OUT;
         loginUser.portal = 'https://facebook.github.io/react-native/docs/assets/favicon.png';
@@ -106,10 +123,19 @@ class MySelfHome extends React.Component {
         this.setState({
           user: loginUser,
           loginType: loginStatus,
-        })
-      });
+        });
 
-    }
+        post("/app/operate/collect/sum",
+          {"userId": res.id},
+          (responseData)=>{
+            this.setState({
+              collectSum: responseData.result
+            })
+          },
+          'POST'
+        );
+      }
+    });
   }
 
   gotoNotify =(type)=> {
@@ -159,7 +185,7 @@ class MySelfHome extends React.Component {
                 <Text>0</Text>
               </View>
               <View>
-                <Text>0</Text>
+                <Text>{this.state.collectSum}</Text>
               </View>
               <View>
                 <Text>0</Text>
@@ -178,8 +204,7 @@ class MySelfHome extends React.Component {
               </TouchableOpacity>
               <TouchableOpacity onPress={() => {
                     this.props.navigation.navigate('MyCollect', {
-                      itemId: 86,
-                      otherParam: 'anything you want here',
+                      userId: this.state.user.id
                     });
                   }}>
                 <View>
