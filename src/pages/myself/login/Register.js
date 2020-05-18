@@ -71,7 +71,7 @@ export default class Register extends React.Component {
         <View style={{marginTop: 10}}>
           <MyCountTime
             ref='myCountTime'
-            timeLeft={5} //倒计时的总时间
+            timeLeft={60} //倒计时的总时间
             width={68}
             height={18}
             color={'#fff'}

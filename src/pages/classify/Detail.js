@@ -155,13 +155,14 @@ export default class Detail extends Component {
           </View>
           <View style={styles.buttons}>
             <TouchableOpacity style={styles.buy} onPress={() => {
-              if (!this.state.isLogin) {
-                Alert.alert("请登录")
-              } else {
-                Alert.alert("该功能暂不支持，谢谢")
-              }
+              // if (!this.state.isLogin) {
+              //   Alert.alert("请登录")
+              // } else {
+              //   Alert.alert("该功能暂不支持，谢谢")
+              // }
+              Alert.alert("021-61371900")
             }}>
-              <Text style={styles.buytext}>立即购买</Text>
+              <Text style={styles.buytext}>联系电话</Text>
             </TouchableOpacity>
           </View>
         </View>
